@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/featured_plants.dart';
-import 'package:plant_app/components/recommend_plants.dart';
-import 'package:plant_app/components/title_with_more_btn.dart';
-import 'package:plant_app/constants.dart';
+import 'package:gecko_app/components/featured_geckos.dart';
+import 'package:gecko_app/components/recommend_geckos.dart';
+import 'package:gecko_app/components/title_with_more_btn.dart';
+import 'package:gecko_app/constants.dart';
 import 'header_with_searchbox.dart';
 
 class Body extends StatelessWidget {
@@ -15,9 +15,9 @@ class Body extends StatelessWidget {
         children: <Widget>[
           HeaderWithSearchBox(size: size),
           TitleWithMoreBtn(title: "Gecko", press: () {},),
-          RecommendPlants(),
-          TitleWithMoreBtn(title: "Featured Plants", press: () {},),
-          FeaturedPlants(),
+          RecommendGeckos(),
+          TitleWithMoreBtn(title: "Featured Geckos", press: () {},),
+          FeaturedGeckos(),
           SizedBox(height: kDefaultPadding),
         ],
       ),

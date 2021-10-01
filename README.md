@@ -1,4 +1,4 @@
-# plant_app
+# gecko_app
 
 A new Flutter project.
 

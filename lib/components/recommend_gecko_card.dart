@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/constants.dart';
-class RecommendPlantCard extends StatelessWidget {
-  const RecommendPlantCard({
+import 'package:gecko_app/constants.dart';
+class RecommendGeckoCard extends StatelessWidget {
+  const RecommendGeckoCard({
     required this.country,
     required this.title,
     required this.image,

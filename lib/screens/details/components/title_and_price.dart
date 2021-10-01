@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/constants.dart';
+import 'package:gecko_app/constants.dart';
 class TitleAndPrice extends StatelessWidget {
   const TitleAndPrice({
     Key? key, required this.title, required this.country, required this.price,

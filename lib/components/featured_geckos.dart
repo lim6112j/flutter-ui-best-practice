@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/featured_plant_card.dart';
-class FeaturedPlants extends StatelessWidget {
-  const FeaturedPlants({
+import 'package:gecko_app/components/featured_gecko_card.dart';
+class FeaturedGeckos extends StatelessWidget {
+  const FeaturedGeckos({
     Key? key,
   }) : super(key: key);
 
@@ -11,12 +11,12 @@ class FeaturedPlants extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          FeaturedPlantCard(
-            image: 'assets/images/bottom_img_1.png',
+          FeaturedGeckoCard(
+            image: 'assets/images/blue_finger_resized.png',
             press : () {},
           ),
-          FeaturedPlantCard(
-            image: 'assets/images/bottom_img_2.png',
+          FeaturedGeckoCard(
+            image: 'assets/images/lemon_frost_resized.png',
             press : () {},
           ),
         ],

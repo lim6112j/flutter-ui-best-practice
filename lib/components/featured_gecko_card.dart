@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/constants.dart';
-class FeaturedPlantCard extends StatelessWidget {
-  const FeaturedPlantCard({
+import 'package:gecko_app/constants.dart';
+class FeaturedGeckoCard extends StatelessWidget {
+  const FeaturedGeckoCard({
     Key? key, required this.image, required this.press,
   }) : super(key: key);
   final String image;

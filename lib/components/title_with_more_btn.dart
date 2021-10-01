@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/constants.dart';
+import 'package:gecko_app/constants.dart';
 
 class TitleWithMoreBtn extends StatelessWidget {
   const TitleWithMoreBtn({

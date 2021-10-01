@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:plant_app/components/body.dart';
-import 'package:plant_app/components/my_bottom_navbar.dart';
-import 'package:plant_app/constants.dart';
+import 'package:gecko_app/components/body.dart';
+import 'package:gecko_app/components/my_bottom_navbar.dart';
+import 'package:gecko_app/constants.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

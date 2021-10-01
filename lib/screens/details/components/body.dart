@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/constants.dart';
-import 'package:plant_app/screens/details/components/image_and_icons.dart';
-import 'package:plant_app/screens/details/components/title_and_price.dart';
+import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/screens/details/components/image_and_icons.dart';
+import 'package:gecko_app/screens/details/components/title_and_price.dart';
 class Body extends StatelessWidget {
+  final String image;
+
+  const Body({Key? key, required this.image}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          ImageAndIcons(size: size),
+          ImageAndIcons(size: size, image: image),
           TitleAndPrice(title: 'Angelica', country: 'korea', price: 300),
           SizedBox(height: kDefaultPadding,),
           Row(

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:plant_app/constants.dart';
-import 'package:plant_app/screens/details/components/icon_card.dart';
+import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/screens/details/components/icon_card.dart';
 class ImageAndIcons extends StatelessWidget {
   const ImageAndIcons({
     Key? key,
-    required this.size,
+    required this.size, required this.image,
   }) : super(key: key);
 
   final Size size;
-
+  final String image;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,8 +57,8 @@ class ImageAndIcons extends StatelessWidget {
                 ],
                 image: DecorationImage(
                   alignment: Alignment.centerLeft,
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/images/img.png")
+                  fit: BoxFit.contain,
+                  image: AssetImage(image)
                 )
               ),
             ),

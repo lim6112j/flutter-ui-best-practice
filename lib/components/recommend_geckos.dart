@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/recommend_plant_card.dart';
-import 'package:plant_app/constants.dart';
-import 'package:plant_app/screens/details/details_screen.dart';
-class RecommendPlants extends StatelessWidget {
-  const RecommendPlants({
+import 'package:gecko_app/components/recommend_gecko_card.dart';
+import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/screens/details/details_screen.dart';
+class RecommendGeckos extends StatelessWidget {
+  const RecommendGeckos({
     Key? key,
   }) : super(key: key);
 
@@ -13,12 +13,12 @@ class RecommendPlants extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          RecommendPlantCard(
+          RecommendGeckoCard(
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
+                  builder: (context) => DetailsScreen(image:  'assets/images/blue.png'),
                 )
               );
             },
@@ -27,12 +27,12 @@ class RecommendPlants extends StatelessWidget {
             price: 200,
             title: "ben lim"
           ),
-          RecommendPlantCard(
+          RecommendGeckoCard(
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
+                  builder: (context) => DetailsScreen(image:  'assets/images/orange.jpeg'),
                 )
               );
             },
@@ -41,12 +41,12 @@ class RecommendPlants extends StatelessWidget {
             price: 400,
             title: "samantha"
           ),
-          RecommendPlantCard(
+          RecommendGeckoCard(
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
+                  builder: (context) => DetailsScreen(image:  'assets/images/yelllow.jpeg'),
                 )
               );
             },
