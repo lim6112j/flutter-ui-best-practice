@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/components/recommend_plant_card.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/details/details_screen.dart';
 class RecommendPlants extends StatelessWidget {
   const RecommendPlants({
@@ -22,7 +23,7 @@ class RecommendPlants extends StatelessWidget {
               );
             },
             country: 'rusia',
-            image: 'assets/images/image_1.png',
+            image: 'assets/images/blue.png',
             price: 200,
             title: "ben lim"
           ),
@@ -36,7 +37,7 @@ class RecommendPlants extends StatelessWidget {
               );
             },
             country: 'korea',
-            image: 'assets/images/image_2.png',
+            image: 'assets/images/orange.jpeg',
             price: 400,
             title: "samantha"
           ),
@@ -50,7 +51,7 @@ class RecommendPlants extends StatelessWidget {
               );
             },
             country: 'Japan',
-            image: 'assets/images/image_3.png',
+            image: 'assets/images/yelllow.jpeg',
             price: 800,
             title: "nakamura"
           ),
