@@ -8,12 +8,20 @@ import 'package:gecko_app/database/dbhelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 
 class Body extends StatelessWidget {
-  Future getGeckoData() async {
-    Gecko gecko = Gecko(id: 1, name: '푸들', age: 2, origin: 'korea');
+  Future<List<Gecko>> getGeckoData() async {
+    Gecko gecko = Gecko(
+        id: 2,
+        name: '푸들',
+        age: 2,
+        origin: 'korea',
+        color: 'red',
+        father: 1,
+        mother: 2);
     DBHelper().insertGecko(gecko);
     var dogs = DBHelper().geckos();
     return dogs;
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -27,14 +35,18 @@ class Body extends StatelessWidget {
             press: () {},
           ),
           RecommendGeckos(),
-          Container(
-            child: FutureBuilder(
-              future: getGeckoData(),
-              builder: (_, snapshot) {
-                print(snapshot.data);
-                return Text('hello');
-              },
-          )),
+          SizedBox(
+            height: 100,
+              child: FutureBuilder(
+                  future: getGeckoData(),
+                  builder: (_, AsyncSnapshot<List<Gecko>> snapshot) {
+                    return new ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (_, index) {
+                        return new Text(snapshot.data![index].name.toString());
+                      },
+                    );
+                  })),
           TitleWithMoreBtn(
             title: "Featured Geckos",
             press: () {},
