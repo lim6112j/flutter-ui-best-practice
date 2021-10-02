@@ -4,6 +4,7 @@ import 'package:gecko_app/components/body.dart';
 import 'package:gecko_app/components/my_bottom_navbar.dart';
 import 'package:gecko_app/constants.dart';
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

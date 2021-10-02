@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/screens/home/home_screen.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:flutter/widgets.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+  MyApp();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
