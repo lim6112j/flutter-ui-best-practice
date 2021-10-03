@@ -22,7 +22,6 @@ class Gecko {
       'mother': mother,
     };
   }
-
   @override
   String toString() {
     return 'Gecko{id: $id, name: $name, age: $age, origin: $origin, color: $color, father: $father, mother: $mother}';

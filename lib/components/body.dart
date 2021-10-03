@@ -35,18 +35,24 @@ class Body extends StatelessWidget {
             press: () {},
           ),
           RecommendGeckos(),
-          SizedBox(
-            height: 100,
-              child: FutureBuilder(
-                  future: getGeckoData(),
-                  builder: (_, AsyncSnapshot<List<Gecko>> snapshot) {
-                    return new ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) {
-                        return new Text(snapshot.data![index].name.toString());
-                      },
-                    );
-                  })),
+          Container(
+            child: SizedBox(
+                height: 100,
+                child: FutureBuilder(
+                    future: getGeckoData(),
+                    builder: (_, AsyncSnapshot<List<Gecko>> snapshot) {
+                      final bool webViewReady =
+                          snapshot.connectionState == ConnectionState.done;
+                      return new ListView.builder(
+                        itemCount: !webViewReady ? null : snapshot.data!.length,
+                        itemBuilder: (_, index) {
+                          return !webViewReady
+                              ? new Text('empty')
+                              : new Text(snapshot.data![index].name.toString());
+                        },
+                      );
+                    })),
+          ),
           TitleWithMoreBtn(
             title: "Featured Geckos",
             press: () {},
