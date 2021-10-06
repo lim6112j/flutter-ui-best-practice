@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/screens/family/Bloodline.dart';
 class MyBottomNavBar extends StatelessWidget {
   const MyBottomNavBar({
     Key? key,
@@ -25,7 +26,14 @@ class MyBottomNavBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         IconButton(icon: SvgPicture.asset("assets/icons/flower.svg"), onPressed: (){},),
-        IconButton(icon: SvgPicture.asset("assets/icons/heart-icon.svg"), onPressed: (){},),
+        IconButton(icon: SvgPicture.asset("assets/icons/heart-icon.svg"), onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Bloodline(title: "Family Bloodline"),
+                )
+              );
+        },),
         IconButton(icon: SvgPicture.asset("assets/icons/user-icon.svg"), onPressed: (){},),
 
       ],

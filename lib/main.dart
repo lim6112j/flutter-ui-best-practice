@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/screens/home/home_screen.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:gecko_app/state/GeckoModel.dart';
+import 'package:provider/provider.dart';
 void main() async {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (context) => GeckoModel(), child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {

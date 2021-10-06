@@ -18,20 +18,19 @@ class DBHelper {
     onCreate: (db, version) {
       // Run the CREATE TABLE statement on the database.
       return db.execute(
-        'CREATE TABLE geckos (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, origin TEXT, color TEXT, father INTEGER, mother INTEGER)',
+        'CREATE TABLE geckos (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, origin TEXT, color TEXT, father INTEGER, mother INTEGER, thumbnail TEXT, images TEXT)',
       );
     },
     onUpgrade: _onUpgrade,
     // Set the version. This executes the onCreate function and provides a
     // path to perform database upgrades and downgrades.
-    version: 5,
+    version: 9,
     );
   }
   void _onUpgrade(Database db, int oldVersion, int newVersion) {
     if(oldVersion < newVersion) {
-      db.execute("ALTER TABLE geckos ADD COLUMN color TEXT;");
-      db.execute("ALTER TABLE geckos ADD COLUMN father INTEGER;");
-      db.execute("ALTER TABLE geckos ADD COLUMN mother INTEGER;");
+      db.execute("ALTER TABLE geckos ADD COLUMN thumbnail TEXT;");
+      db.execute("ALTER TABLE geckos ADD COLUMN images TEXT;");
     }
   }
   // Define a function that inserts geckos into the database
@@ -68,6 +67,8 @@ class DBHelper {
         color: maps[i]['color'],
         father: maps[i]['father'],
         mother: maps[i]['mother'],
+        thumbnail: maps[i]['thumbnail'],
+        images: maps[i]['images']
       );
     });
   }

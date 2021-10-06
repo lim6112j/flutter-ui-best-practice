@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gecko_app/components/recommend_gecko_card.dart';
+import 'package:gecko_app/screens/home/components/recommend_gecko_card.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/details/details_screen.dart';
 class RecommendGeckos extends StatelessWidget {
+  final Future<List<Gecko>>? geckos;
   const RecommendGeckos({
-    Key? key,
+    Key? key, this.geckos,
   }) : super(key: key);
 
   @override

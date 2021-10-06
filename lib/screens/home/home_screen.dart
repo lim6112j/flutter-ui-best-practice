@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gecko_app/components/body.dart';
-import 'package:gecko_app/components/my_bottom_navbar.dart';
+import 'package:gecko_app/screens/home/components/body.dart';
+import 'package:gecko_app/screens/home/components/my_bottom_navbar.dart';
 import 'package:gecko_app/constants.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

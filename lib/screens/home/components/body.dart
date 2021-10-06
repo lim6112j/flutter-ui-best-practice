@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gecko_app/components/featured_geckos.dart';
-import 'package:gecko_app/components/recommend_geckos.dart';
-import 'package:gecko_app/components/title_with_more_btn.dart';
+import 'package:gecko_app/screens/home/components/featured_geckos.dart';
+import 'package:gecko_app/screens/home/components/recommend_geckos.dart';
+import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/state/GeckoModel.dart';
+import 'package:provider/provider.dart';
 import 'header_with_searchbox.dart';
 import 'package:gecko_app/database/dbhelper.dart';
 import 'package:gecko_app/models/gecko.dart';
@@ -16,7 +18,10 @@ class Body extends StatelessWidget {
         origin: 'korea',
         color: 'red',
         father: 1,
-        mother: 2);
+        mother: 2,
+        thumbnail: "assets/images/blue.png",
+        images: "img1, img2"
+      );
     DBHelper().insertGecko(gecko);
     var dogs = DBHelper().geckos();
     return dogs;
@@ -26,6 +31,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     Size size = MediaQuery.of(context).size;
+    var gecko = context.watch<GeckoModel>();
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -34,24 +40,24 @@ class Body extends StatelessWidget {
             title: "Gecko",
             press: () {},
           ),
-          RecommendGeckos(),
-          Container(
+          RecommendGeckos(
+            geckos: getGeckoData(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-                height: 100,
-                child: FutureBuilder(
-                    future: getGeckoData(),
-                    builder: (_, AsyncSnapshot<List<Gecko>> snapshot) {
-                      final bool webViewReady =
-                          snapshot.connectionState == ConnectionState.done;
-                      return new ListView.builder(
-                        itemCount: !webViewReady ? null : snapshot.data!.length,
-                        itemBuilder: (_, index) {
-                          return !webViewReady
-                              ? new Text('empty')
-                              : new Text(snapshot.data![index].name.toString());
-                        },
-                      );
-                    })),
+              height: 80 * (gecko.geckos.length.toDouble()),
+              child: ListView.builder(
+                itemCount: gecko.geckos.length,
+                itemBuilder: (context, index) => Card(
+                    child: ListTile(
+                        title: Text(gecko.geckos[index].name!),
+                        subtitle: Text(gecko.geckos[index].color!),
+                        trailing: Image.asset(gecko.geckos[index].thumbnail!),
+                      ),
+                    ),
+              ),
+            ),
           ),
           TitleWithMoreBtn(
             title: "Featured Geckos",

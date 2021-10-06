@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gecko_app/components/featured_gecko_card.dart';
+import 'package:gecko_app/screens/home/components/featured_gecko_card.dart';
 class FeaturedGeckos extends StatelessWidget {
   const FeaturedGeckos({
     Key? key,
