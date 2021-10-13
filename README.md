@@ -14,3 +14,10 @@ A new Flutter project.
 * change gecko.dart model
 * delete app from ios simulator 
 * flutter run stop and restart
+
+## ios device test
+
+``` sh
+project-folder/open ios/Runner.xcworkspace
+flutter run --release
+```

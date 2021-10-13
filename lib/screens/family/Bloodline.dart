@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:graphview/GraphView.dart';
+
 class Bloodline extends StatefulWidget {
   Bloodline({Key? key, required this.title}) : super(key: key);
 
@@ -18,13 +19,15 @@ class Bloodline extends StatefulWidget {
   @override
   _BloodlineState createState() => _BloodlineState();
 }
-class  _BloodlineState extends State<Bloodline> {
+
+class _BloodlineState extends State<Bloodline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
       mainAxisSize: MainAxisSize.max,
       children: [
+        SizedBox(height: 50,),
         Wrap(
           children: [
             Container(
@@ -74,7 +77,8 @@ class  _BloodlineState extends State<Bloodline> {
             RaisedButton(
               onPressed: () {
                 final node12 = Node(rectangleWidget(r.nextInt(100)));
-                var edge = graph.getNodeAtPosition(r.nextInt(graph.nodeCount()));
+                var edge =
+                    graph.getNodeAtPosition(r.nextInt(graph.nodeCount()));
                 print(edge);
                 graph.addEdge(edge, node12);
                 setState(() {});
@@ -88,10 +92,11 @@ class  _BloodlineState extends State<Bloodline> {
               constrained: false,
               boundaryMargin: EdgeInsets.all(100),
               minScale: 0.001,
-              maxScale: 5.6,
+              maxScale: 3.6,
               child: GraphView(
                 graph: graph,
-                algorithm: BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
+                algorithm:
+                    BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
                 paint: Paint()
                   ..color = Colors.green
                   ..strokeWidth = 1
@@ -114,15 +119,13 @@ class  _BloodlineState extends State<Bloodline> {
       onTap: () {
         print('clicked');
       },
-      child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              BoxShadow(color: (Colors.blue[100])!, spreadRadius: 1),
-            ],
-          ),
-          child: Text('Gecko ${a}')),
+      child: Column(children: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.adb),
+        ),
+        Text('Gecko ${a}')
+      ]),
     );
   }
 
@@ -140,7 +143,8 @@ class  _BloodlineState extends State<Bloodline> {
     final node8 = Node.Id(7);
     final node7 = Node.Id(8);
     final node9 = Node.Id(9);
-    final node10 = Node(rectangleWidget(10));  //using deprecated mechanism of directly placing the widget here
+    final node10 = Node(rectangleWidget(
+        10)); //using deprecated mechanism of directly placing the widget here
     final node11 = Node(rectangleWidget(11));
     final node12 = Node(rectangleWidget(12));
 
@@ -157,9 +161,9 @@ class  _BloodlineState extends State<Bloodline> {
     graph.addEdge(node11, node12);
 
     builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
+      ..siblingSeparation = (50)
+      ..levelSeparation = (60)
+      ..subtreeSeparation = (60)
       ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
   }
 }
