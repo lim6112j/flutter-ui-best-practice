@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:graphview/GraphView.dart';
 
+import '../../constants.dart';
+
 class Bloodline extends StatefulWidget {
   Bloodline({Key? key, required this.title}) : super(key: key);
 
@@ -24,10 +26,13 @@ class _BloodlineState extends State<Bloodline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColor.withOpacity(0.9),
         body: Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        SizedBox(height: 50,),
+        SizedBox(
+          height: 50,
+        ),
         Wrap(
           children: [
             Container(
@@ -74,7 +79,8 @@ class _BloodlineState extends State<Bloodline> {
                 },
               ),
             ),
-            RaisedButton(
+            IconButton(
+              icon: Icon(Icons.add_box_outlined),
               onPressed: () {
                 final node12 = Node(rectangleWidget(r.nextInt(100)));
                 var edge =
@@ -83,7 +89,6 @@ class _BloodlineState extends State<Bloodline> {
                 graph.addEdge(edge, node12);
                 setState(() {});
               },
-              child: Text("Add"),
             )
           ],
         ),
@@ -119,12 +124,36 @@ class _BloodlineState extends State<Bloodline> {
       onTap: () {
         print('clicked');
       },
-      child: Column(children: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.adb),
+      child: Column(
+        mainAxisAlignment:MainAxisAlignment.center,
+        children: [
+        GestureDetector(
+          child: Container(
+            height: 50,
+            width: 70,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/yelllow.jpeg"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(63),
+                bottomLeft: Radius.circular(63),
+                topRight: Radius.circular(63),
+                bottomRight: Radius.circular(63),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 10),
+                  blurRadius: 10,
+                  color: Colors.black.withOpacity(0.3),
+                )
+              ],
+            ),
+          ),
         ),
-        Text('Gecko ${a}')
+        SizedBox(height: 10,),
+        Text('Gecko ${a}', style: TextStyle(color: Colors.white),),
       ]),
     );
   }
@@ -161,9 +190,9 @@ class _BloodlineState extends State<Bloodline> {
     graph.addEdge(node11, node12);
 
     builder
-      ..siblingSeparation = (50)
-      ..levelSeparation = (60)
-      ..subtreeSeparation = (60)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
+      ..siblingSeparation = (14)
+      ..levelSeparation = (40)
+      ..subtreeSeparation = (20)
+      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_BOTTOM_TOP);
   }
 }
