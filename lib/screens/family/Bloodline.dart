@@ -26,7 +26,7 @@ class _BloodlineState extends State<Bloodline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor.withOpacity(0.9),
+      backgroundColor: kPrimaryColor,
         body: Column(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -133,7 +133,7 @@ class _BloodlineState extends State<Bloodline> {
             width: 70,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/yelllow.jpeg"),
+                image: AssetImage("assets/images/yellow.jpeg"),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.only(
@@ -153,7 +153,12 @@ class _BloodlineState extends State<Bloodline> {
           ),
         ),
         SizedBox(height: 10,),
-        Text('Gecko ${a}', style: TextStyle(color: Colors.white),),
+        Row(
+          children: [
+            Icon(Icons.male, color: Colors.white, size: 15,),
+            Text(' Gecko ${a}', style: TextStyle(color: Colors.white),),
+          ],
+        ),
       ]),
     );
   }
@@ -172,22 +177,26 @@ class _BloodlineState extends State<Bloodline> {
     final node8 = Node.Id(7);
     final node7 = Node.Id(8);
     final node9 = Node.Id(9);
-    final node10 = Node(rectangleWidget(
-        10)); //using deprecated mechanism of directly placing the widget here
+    final node10 = Node(rectangleWidget(10)); //using deprecated mechanism of directly placing the widget here
     final node11 = Node(rectangleWidget(11));
     final node12 = Node(rectangleWidget(12));
 
     graph.addEdge(node1, node2);
-    graph.addEdge(node1, node3, paint: Paint()..color = Colors.red);
-    graph.addEdge(node1, node4, paint: Paint()..color = Colors.blue);
-    graph.addEdge(node2, node5);
+    graph.addEdge(node2, node12);
+    // graph.addEdge(node1, node3, paint: Paint()..color = Colors.red);
+    graph.addEdge(node1, node3);
+    // graph.addEdge(node1, node4, paint: Paint()..color = Colors.blue);
+    // graph.addEdge(node2, node5);
     graph.addEdge(node2, node6);
-    graph.addEdge(node6, node7, paint: Paint()..color = Colors.red);
-    graph.addEdge(node6, node8, paint: Paint()..color = Colors.red);
-    graph.addEdge(node4, node9);
-    graph.addEdge(node4, node10, paint: Paint()..color = Colors.black);
-    graph.addEdge(node4, node11, paint: Paint()..color = Colors.red);
-    graph.addEdge(node11, node12);
+    // graph.addEdge(node6, node7, paint: Paint()..color = Colors.red);
+    graph.addEdge(node6, node7);
+    // graph.addEdge(node6, node8, paint: Paint()..color = Colors.red);
+    graph.addEdge(node6, node8);
+    graph.addEdge(node3, node4);
+    graph.addEdge(node3, node5);
+    // graph.addEdge(node4, node10, paint: Paint()..color = Colors.black);
+    // graph.addEdge(node4, node11, paint: Paint()..color = Colors.red);
+    // graph.addEdge(node11, node12);
 
     builder
       ..siblingSeparation = (14)

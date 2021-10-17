@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
+import 'package:gecko_app/screens/home/components/list_gecko.dart';
 import 'package:gecko_app/screens/home/components/recommend_geckos.dart';
 import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
@@ -43,22 +44,7 @@ class Body extends StatelessWidget {
           RecommendGeckos(
             geckos: getGeckoData(),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 80 * (gecko.geckos.length.toDouble()),
-              child: ListView.builder(
-                itemCount: gecko.geckos.length,
-                itemBuilder: (context, index) => Card(
-                    child: ListTile(
-                        title: Text(gecko.geckos[index].name!),
-                        subtitle: Text(gecko.geckos[index].color!),
-                        trailing: Image.asset(gecko.geckos[index].thumbnail!),
-                      ),
-                    ),
-              ),
-            ),
-          ),
+          // ListGecko(gecko: gecko),
           TitleWithMoreBtn(
             title: "Featured Geckos",
             press: () {},

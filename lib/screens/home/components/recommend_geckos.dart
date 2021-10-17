@@ -48,12 +48,12 @@ class RecommendGeckos extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(image:  'assets/images/yelllow.jpeg'),
+                  builder: (context) => DetailsScreen(image:  'assets/images/yellow.jpeg'),
                 )
               );
             },
             country: 'Japan',
-            image: 'assets/images/yelllow.jpeg',
+            image: 'assets/images/yellow.jpeg',
             price: 800,
             title: "nakamura"
           ),
