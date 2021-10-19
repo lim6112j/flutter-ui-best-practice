@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
+import 'package:gecko_app/screens/home/components/hero_detail_view.dart';
 import 'package:gecko_app/screens/home/components/list_gecko.dart';
+import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:gecko_app/screens/home/components/recommend_geckos.dart';
 import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
@@ -44,7 +46,7 @@ class Body extends StatelessWidget {
           RecommendGeckos(
             geckos: getGeckoData(),
           ),
-          // ListGecko(gecko: gecko),
+          ListGecko(gecko: gecko),
           TitleWithMoreBtn(
             title: "Featured Geckos",
             press: () {},
@@ -56,3 +58,4 @@ class Body extends StatelessWidget {
     );
   }
 }
+

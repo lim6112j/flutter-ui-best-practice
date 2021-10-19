@@ -1,9 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gecko_app/screens/home/components/hero_detail_view.dart';
+import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 
 class ListGecko extends StatelessWidget {
+
   const ListGecko({
     Key? key,
     required this.gecko,
@@ -20,14 +22,21 @@ class ListGecko extends StatelessWidget {
         child: ListView.builder(
           itemCount: gecko.geckos.length,
           itemBuilder: (context, index) => Card(
-              child: ListTile(
-                  title: Text(gecko.geckos[index].name!),
-                  subtitle: Text(gecko.geckos[index].color!),
-                  trailing: Image.asset(gecko.geckos[index].thumbnail!),
-                ),
-              ),
+            child: ListTile(
+              title: Text(gecko.geckos[index].name!),
+              subtitle: Text(gecko.geckos[index].color!),
+              trailing: PhotoHero(img: gecko.geckos[index].thumbnail,onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return HeroDetailView(gecko: gecko.geckos[index],);
+                      },
+                  ));
+              },),
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
