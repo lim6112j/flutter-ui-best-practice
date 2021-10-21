@@ -96,7 +96,7 @@ class _BloodlineState extends State<Bloodline> {
           child: InteractiveViewer(
               constrained: false,
               boundaryMargin: EdgeInsets.all(100),
-              minScale: 0.001,
+              minScale: 1.0,
               maxScale: 3.6,
               child: GraphView(
                 graph: graph,
@@ -129,8 +129,8 @@ class _BloodlineState extends State<Bloodline> {
         children: [
         GestureDetector(
           child: Container(
-            height: 50,
-            width: 70,
+            height: 30,
+            width: 40,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/yellow.jpeg"),
@@ -199,9 +199,9 @@ class _BloodlineState extends State<Bloodline> {
     // graph.addEdge(node11, node12);
 
     builder
-      ..siblingSeparation = (14)
-      ..levelSeparation = (40)
-      ..subtreeSeparation = (20)
+      ..siblingSeparation = (10)
+      ..levelSeparation = (20)
+      ..subtreeSeparation = (10)
       ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_BOTTOM_TOP);
   }
 }

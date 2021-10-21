@@ -15,19 +15,60 @@ import 'package:gecko_app/models/gecko.dart';
 class Body extends StatelessWidget {
   Future<List<Gecko>> getGeckoData() async {
     Gecko gecko = Gecko(
-        id: 2,
-        name: '푸들',
+        id: 1,
+        name: 'Cutey',
         age: 2,
         origin: 'korea',
-        color: 'red',
+        color: 'yellow',
+        father: 1,
+        mother: 2,
+        thumbnail: "assets/images/yellow.jpeg",
+        images: "img1, img2",
+        ancestry: "",
+      );
+    Gecko gecko2 = Gecko(
+        id: 2,
+        name: '파랑이',
+        age: 4,
+        origin: 'Indonesia',
+        color: 'blue',
         father: 1,
         mother: 2,
         thumbnail: "assets/images/blue.png",
-        images: "img1, img2"
+        images: "img1, img2",
+        ancestry: "1/",
+      );
+    Gecko gecko3 = Gecko(
+        id: 3,
+        name: '오렌지',
+        age: 1,
+        origin: 'Brasil',
+        color: 'orange',
+        father: 1,
+        mother: 2,
+        thumbnail: "assets/images/orange.jpeg",
+        images: "img1, img2",
+        ancestry: "1/2/",
+      );
+    Gecko gecko4 = Gecko(
+        id: 4,
+        name: '레모니',
+        age: 2,
+        origin: 'America',
+        color: 'lemon',
+        father: 1,
+        mother: 2,
+        thumbnail: "assets/images/lemon_frost_resized.png",
+        images: "img1, img2",
+        ancestry: "1/2/3/",
       );
     DBHelper().insertGecko(gecko);
-    var dogs = DBHelper().geckos();
-    return dogs;
+    DBHelper().insertGecko(gecko2);
+    DBHelper().insertGecko(gecko3);
+    DBHelper().insertGecko(gecko4);
+    var geckos = DBHelper().geckos();
+    print(await geckos);
+    return await geckos;
   }
 
   @override
@@ -46,12 +87,12 @@ class Body extends StatelessWidget {
           RecommendGeckos(
             geckos: getGeckoData(),
           ),
-          ListGecko(gecko: gecko),
           TitleWithMoreBtn(
             title: "Featured Geckos",
             press: () {},
           ),
           FeaturedGeckos(),
+          ListGecko(geckos: getGeckoData()),
           SizedBox(height: kDefaultPadding),
         ],
       ),

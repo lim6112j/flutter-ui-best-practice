@@ -13,7 +13,9 @@ class Gecko {
   final String? thumbnail;
 
   final String? images;
-  Gecko({  this.id,  this.name,  this.age, this.origin, this.color, this.father, this.mother,this.thumbnail, this.images});
+
+  final String? ancestry;
+  Gecko({  this.id,  this.name,  this.age, this.origin, this.color, this.father, this.mother,this.thumbnail, this.images, this.ancestry });
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,10 +28,11 @@ class Gecko {
       'mother': mother,
       'thumbnail': thumbnail,
       'images': images,
+      'ancestry': ancestry,
     };
   }
   @override
   String toString() {
-    return 'Gecko{id: $id, name: $name, age: $age, origin: $origin, color: $color, father: $father, mother: $mother, thumbnail: $thumbnail, images: $images}';
+    return 'Gecko{id: $id, ancestry: $ancestry, name: $name, age: $age, origin: $origin, color: $color, father: $father, mother: $mother, thumbnail: $thumbnail, images: $images}';
   }
 }
