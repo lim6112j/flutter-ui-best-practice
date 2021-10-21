@@ -73,6 +73,32 @@ class DBHelper {
     });
   }
 
+  Future<List<Gecko>> selectGeckos(List<String> args) async {
+    // Get a reference to the database.
+    final db = await database;
+
+    // Query the table for all The Geckos.
+    List<Map<String, dynamic>> maps = [];
+    for (var i = 0; i < args.length; i++) {
+      List<Map<String, dynamic>> mp = await db.query('geckos', where: 'id = ?', whereArgs: [args[i]]);
+       maps..addAll(mp);
+    }
+    // Convert the List<Map<String, dynamic> into a List<Gecko>.
+    return List.generate(maps.length, (i) {
+      return Gecko(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        age: maps[i]['age'],
+        origin: maps[i]['origin'],
+        color: maps[i]['color'],
+        father: maps[i]['father'],
+        mother: maps[i]['mother'],
+        thumbnail: maps[i]['thumbnail'],
+        images: maps[i]['images'],
+        ancestry: maps[i]['ancestry'],
+      );
+    });
+  }
   Future<void> updateGecko(Gecko gecko) async {
     // Get a reference to the database.
     final db = await database;

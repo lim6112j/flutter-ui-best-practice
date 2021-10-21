@@ -17,15 +17,15 @@ class ListGecko extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       builder: (context, AsyncSnapshot snapshot) {
-        if(snapshot.connectionState == ConnectionState.none && !snapshot.hasData){
+        if(snapshot.connectionState == ConnectionState.none || !snapshot.hasData){
           return Container();
         }
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            height: 80 * (snapshot.data!.length as int).toDouble(),
+            height: 80 * (snapshot.data.length as int).toDouble(),
             child: ListView.builder(
-              itemCount: snapshot.data!.length,
+              itemCount: snapshot.data.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: Text(snapshot.data[index].name!),

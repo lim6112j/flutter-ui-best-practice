@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/database/dbhelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:graphview/GraphView.dart';
@@ -67,11 +68,17 @@ class _HeroDetailViewState extends State<HeroDetailView> {
   }
 
   final Graph graph = Graph()..isTree = true;
-
   BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
-
+  Future<List<Gecko>> getParents() async{
+    var ancestry = widget.gecko.ancestry;
+    var arr = ancestry!.split('/');
+    List<Gecko> gList = await DBHelper().selectGeckos(arr);
+    print(gList);
+    return gList;
+  }
   @override
   void initState() {
+    getParents();
     final node1 = Node.Id(1);
     final node2 = Node.Id(2);
     final node3 = Node.Id(3);
