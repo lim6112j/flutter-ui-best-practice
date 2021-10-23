@@ -67,7 +67,7 @@ class Body extends StatelessWidget {
     DBHelper().insertGecko(gecko3);
     DBHelper().insertGecko(gecko4);
     var geckos = DBHelper().geckos();
-    print(await geckos);
+    //print(await geckos);
     return await geckos;
   }
 
