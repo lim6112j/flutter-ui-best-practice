@@ -21,3 +21,8 @@ A new Flutter project.
 project-folder/open ios/Runner.xcworkspace
 flutter run --release
 ```
+## unit test
+
+``` sh
+flutter test test/tree_test.dart
+```

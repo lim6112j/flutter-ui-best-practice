@@ -124,6 +124,11 @@ class _HeroDetailViewState extends State<HeroDetailView> {
         }
         snapshot.data!.insert(0, widget.gecko);
         print(snapshot.data!.length);
+        var input = "11/1/2/3/0/4/0/5/6/7/8/0/10/0/0";
+        var arr = input.split('/');
+       //var result = getPath(0, [], arr, []);
+        print('input array length : ${arr.length}');
+        //print(result);
         switch (snapshot.data!.length) {
           case 1:
           graph.addEdge(Node.Id(snapshot.data![0].id), Node.Id(snapshot.data![0].id));
@@ -131,7 +136,7 @@ class _HeroDetailViewState extends State<HeroDetailView> {
           default:
             for (var i = 1; i < snapshot.data!.length; i++) {
               if(widget.gecko.id != snapshot.data![i].id){
-                graph.addEdge(Node.Id(widget.gecko.id), Node.Id(snapshot.data![i].id));
+                graph.addEdge(Node.Id(snapshot.data![i-1].id), Node.Id(snapshot.data![i].id));
               }
             }
         }
