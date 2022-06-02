@@ -27,9 +27,7 @@ class _HeroDetailViewState extends State<HeroDetailView> {
       onTap: () {
         print('clicked');
       },
-      child: Column(
-        mainAxisAlignment:MainAxisAlignment.center,
-        children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         GestureDetector(
           child: Container(
             height: 30,
@@ -55,11 +53,20 @@ class _HeroDetailViewState extends State<HeroDetailView> {
             ),
           ),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Row(
           children: [
-            Icon(Icons.male, color: Colors.black, size: 15,),
-            Text('${gecko.name!}', style: TextStyle(color: Colors.black),),
+            Icon(
+              Icons.male,
+              color: Colors.black,
+              size: 15,
+            ),
+            Text(
+              '${gecko.name!}',
+              style: TextStyle(color: Colors.black),
+            ),
           ],
         ),
       ]),
@@ -68,13 +75,15 @@ class _HeroDetailViewState extends State<HeroDetailView> {
 
   final Graph graph = Graph()..isTree = true;
   BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
-  Future<List<Gecko>> getParents() async{
+  Future<List<Gecko>> getParents() async {
     var ancestry = widget.gecko.ancestry;
     var arr = ancestry!.split('/');
     List<Gecko> gList = await DBHelper().selectGeckos(arr);
     //print(gList);
     return gList;
   }
+
+  double log2(num x) => log(x) / ln2;
   @override
   void initState() {
     // final node1 = Node.Id(1);
@@ -107,70 +116,88 @@ class _HeroDetailViewState extends State<HeroDetailView> {
     // graph.addEdge(node4, node11, paint: Paint()..color = Colors.red);
     // graph.addEdge(node11, node12);
     builder
-    ..siblingSeparation = (10)
-    ..levelSeparation = (20)
-    ..subtreeSeparation = (10)
-    ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_BOTTOM_TOP);
-
+      ..siblingSeparation = (10)
+      ..levelSeparation = (20)
+      ..subtreeSeparation = (10)
+      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_BOTTOM_TOP);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Gecko>>(
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.none || !snapshot.hasData){
+        if (snapshot.connectionState == ConnectionState.none ||
+            !snapshot.hasData) {
           print("snapshot not available");
           return Container();
         }
         snapshot.data!.insert(0, widget.gecko);
         print(snapshot.data!.length);
-        var input = "11/1/2/3/0/4/0/5/6/7/8/0/10/0/0";
-        var arr = input.split('/');
-       //var result = getPath(0, [], arr, []);
-        print('input array length : ${arr.length}');
+        //var input = "11/1/2/3/0/4/0/5/6/7/8/0/10/0/0";
+        //var arr = input.split('/');
+        //var result = getPath(0, [], arr, []);
+        //print('input array length : ${arr.length}');
         //print(result);
         switch (snapshot.data!.length) {
           case 1:
-          graph.addEdge(Node.Id(snapshot.data![0].id), Node.Id(snapshot.data![0].id));
+            graph.addEdge(
+                Node.Id(snapshot.data![0].id), Node.Id(snapshot.data![0].id));
             break;
           default:
-            for (var i = 1; i < snapshot.data!.length; i++) {
-              if(widget.gecko.id != snapshot.data![i].id){
-                graph.addEdge(Node.Id(snapshot.data![i-1].id), Node.Id(snapshot.data![i].id));
+            for (var p = 0; p < snapshot.data!.length; p++) {
+              // i: 1, p: 0, c: 1,2
+              // i: 2, p: 1, c: 3,4
+              // i: 2, p: 2, c : 5,6
+              // i: 3, p: 3, c: 7,8
+              // i: 3, p: 4, c: 9,10
+              // i: 3, p: 5, c: 11,12
+              // i: 3, p: 6, c: 13,14
+              print(snapshot.data![p]);
+              var numofrep = p == 0 ? 0 : log2(p).round();
+              print("num of rep : ");
+              print(numofrep);
+              if (p * 2 < snapshot.data!.length - 1) {
+                graph.addEdge(Node.Id(snapshot.data![p].id),
+                    Node.Id(snapshot.data![p * 2 + 1].id));
+              }
+              if (p * 2 < snapshot.data!.length - 2) {
+                graph.addEdge(Node.Id(snapshot.data![p].id),
+                    Node.Id(snapshot.data![p * 2 + 2].id));
               }
             }
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(widget.gecko.name != null ? widget.gecko.name! : 'Gecko'),
+            title:
+                Text(widget.gecko.name != null ? widget.gecko.name! : 'Gecko'),
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: InteractiveViewer(
-                  constrained: false,
-                  boundaryMargin: EdgeInsets.all(10),
-                  minScale: 1.0,
-                  maxScale: 3.6,
-                  child: GraphView(
-                    graph: graph,
-                    algorithm:
-                    BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-                    paint: Paint()
-                    ..color = Colors.green
-                    ..strokeWidth = 1
-                    ..style = PaintingStyle.stroke,
-                    builder: (Node node) {
-                      // I can decide what widget should be shown here based on the id
-                      var a = node.key?.value as int;
-                      var aGecko = Gecko();
-                      for (var item in snapshot.data!) {
-                        if(item.id == a) aGecko = item ;
-                      }
-                      return rectangleWidget(aGecko);
-                    },
-                )),
+                    constrained: false,
+                    boundaryMargin: EdgeInsets.all(10),
+                    minScale: 1.0,
+                    maxScale: 3.6,
+                    child: GraphView(
+                      graph: graph,
+                      algorithm: BuchheimWalkerAlgorithm(
+                          builder, TreeEdgeRenderer(builder)),
+                      paint: Paint()
+                        ..color = Colors.green
+                        ..strokeWidth = 1
+                        ..style = PaintingStyle.stroke,
+                      builder: (Node node) {
+                        // I can decide what widget should be shown here based on the id
+                        var a = node.key?.value as int;
+                        var aGecko = Gecko();
+                        for (var item in snapshot.data!) {
+                          if (item.id == a) aGecko = item;
+                        }
+                        return rectangleWidget(aGecko);
+                      },
+                    )),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -187,31 +214,44 @@ class _HeroDetailViewState extends State<HeroDetailView> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
-                padding: EdgeInsets.all(kDefaultPadding / 2),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 50,
-                          color: kPrimaryColor.withOpacity(0.23))
-                    ]),
-                    child: Row(children: [
-                        RichText(text: TextSpan(
-                            children: [
-                              TextSpan(text: "${widget.gecko.name}\n".toUpperCase(), style: Theme.of(context).textTheme.button),
-                              TextSpan(text: "${widget.gecko.origin}".toUpperCase(), style: TextStyle(color: kPrimaryColor.withOpacity(0.5))),
-                            ]
-                        ),),
-                        Spacer(),
-                        Text('${widget.gecko.age} years old', style: Theme.of(context).textTheme.button!.copyWith(color: kPrimaryColor))
-                    ],)
-              ), SizedBox(height: 50,)
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(kDefaultPadding / 2),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 10),
+                            blurRadius: 50,
+                            color: kPrimaryColor.withOpacity(0.23))
+                      ]),
+                  child: Row(
+                    children: [
+                      RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: "${widget.gecko.name}\n".toUpperCase(),
+                              style: Theme.of(context).textTheme.button),
+                          TextSpan(
+                              text: "${widget.gecko.origin}".toUpperCase(),
+                              style: TextStyle(
+                                  color: kPrimaryColor.withOpacity(0.5))),
+                        ]),
+                      ),
+                      Spacer(),
+                      Text('${widget.gecko.age} years old',
+                          style: Theme.of(context)
+                              .textTheme
+                              .button!
+                              .copyWith(color: kPrimaryColor))
+                    ],
+                  )),
+              SizedBox(
+                height: 50,
+              )
             ],
           ),
         );
