@@ -20,6 +20,28 @@ class HeroDetailView extends StatefulWidget {
   State<HeroDetailView> createState() => _HeroDetailViewState();
 }
 
+class _CallbackBuchAlgorithm extends BuchheimWalkerAlgorithm {
+  Size mediaSize = Size(0, 0);
+  _CallbackBuchAlgorithm(BuchheimWalkerConfiguration configuration,
+      EdgeRenderer? renderer, Size size)
+      : super(configuration, renderer) {
+    mediaSize = size;
+  }
+  @override
+  Size run(Graph? graph, double shiftX, double shiftY) {
+    mNodeData.clear();
+    var firstNode = getFirstNode(graph!);
+    firstWalk(graph, firstNode, 0, 0);
+    secondWalk(graph, firstNode, 0.0);
+    checkUnconnectedNotes(graph);
+    positionNodes(graph);
+    var graphSize = calculateGraphSize(graph);
+    shiftCoordinates(graph, (mediaSize.width - graphSize.width) / 2, shiftY);
+    //shiftCoordinates(graph, (mediaSize.width - graphSize.width) / 2, shiftY);
+    return calculateGraphSize(graph);
+  }
+}
+
 class _HeroDetailViewState extends State<HeroDetailView> {
   Random r = Random();
   Widget rectangleWidget(Gecko gecko) {
@@ -182,8 +204,10 @@ class _HeroDetailViewState extends State<HeroDetailView> {
                     maxScale: 3.6,
                     child: GraphView(
                       graph: graph,
-                      algorithm: BuchheimWalkerAlgorithm(
-                          builder, TreeEdgeRenderer(builder)),
+                      algorithm: _CallbackBuchAlgorithm(
+                          builder,
+                          TreeEdgeRenderer(builder),
+                          MediaQuery.of(context).size),
                       paint: Paint()
                         ..color = Colors.green
                         ..strokeWidth = 1
