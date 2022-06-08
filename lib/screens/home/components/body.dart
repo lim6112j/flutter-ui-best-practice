@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
+import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
 import 'package:gecko_app/screens/home/components/hero_detail_view.dart';
 import 'package:gecko_app/screens/home/components/list_gecko.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
@@ -131,7 +132,8 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          HeaderWithSearchBox(size: size),
+          //HeaderWithSearchBox(size: size),
+          HeaderWithScrollMenu(size: size),
           TitleWithMoreBtn(
             title: "Gecko",
             press: () {},

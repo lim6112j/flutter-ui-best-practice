@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/home/components/hero_detail_view.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
