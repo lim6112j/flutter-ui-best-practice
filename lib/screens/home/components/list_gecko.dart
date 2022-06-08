@@ -6,9 +6,9 @@ import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 
 class ListGecko extends StatelessWidget {
-
   const ListGecko({
-    Key? key, this.geckos,
+    Key? key,
+    this.geckos,
   }) : super(key: key);
 
   final Future<List<Gecko>>? geckos;
@@ -17,7 +17,8 @@ class ListGecko extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       builder: (context, AsyncSnapshot snapshot) {
-        if(snapshot.connectionState == ConnectionState.none || !snapshot.hasData){
+        if (snapshot.connectionState == ConnectionState.none ||
+            !snapshot.hasData) {
           return Container();
         }
         return Padding(
@@ -25,18 +26,24 @@ class ListGecko extends StatelessWidget {
           child: SizedBox(
             height: 80 * (snapshot.data.length as int).toDouble(),
             child: ListView.builder(
+              primary: false,
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: Text(snapshot.data[index].name!),
                   subtitle: Text(snapshot.data[index].color!),
-                  trailing: PhotoHero(img: snapshot.data[index].thumbnail,onTap: () {
+                  trailing: PhotoHero(
+                    img: snapshot.data[index].thumbnail,
+                    onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return HeroDetailView(gecko: snapshot.data[index],);
-                          },
+                        builder: (BuildContext context) {
+                          return HeroDetailView(
+                            gecko: snapshot.data[index],
+                          );
+                        },
                       ));
-                  },),
+                    },
+                  ),
                 ),
               ),
             ),
@@ -47,4 +54,3 @@ class ListGecko extends StatelessWidget {
     );
   }
 }
-

@@ -15,15 +15,17 @@ class TitleWithMoreBtn extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
       child: Row(
         children: [
-          TitleWithCustomUnderline(
-            text: title
-          ),
+          TitleWithCustomUnderline(text: title),
           Spacer(),
           MaterialButton(
             onPressed: press,
-            child: Text("more", style: TextStyle(color: Colors.white),),
+            child: Text(
+              "more",
+              style: TextStyle(color: Colors.white),
+            ),
             color: kPrimaryColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           )
         ],
       ),
@@ -31,8 +33,8 @@ class TitleWithMoreBtn extends StatelessWidget {
   }
 }
 
-class  TitleWithCustomUnderline extends StatelessWidget {
-  const TitleWithCustomUnderline ({
+class TitleWithCustomUnderline extends StatelessWidget {
+  const TitleWithCustomUnderline({
     Key? key,
     required this.text,
   }) : super(key: key);
@@ -46,17 +48,16 @@ class  TitleWithCustomUnderline extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: kDefaultPadding / 4),
           ),
-          Text( text, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(text,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              margin: EdgeInsets.only(right: kDefaultPadding / 4),
-              height: 7,
-              color: kPrimaryColor.withOpacity(0.2)
-            )
-          ),
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                  margin: EdgeInsets.only(right: kDefaultPadding / 4),
+                  height: 7,
+                  color: kPrimaryColor.withOpacity(0.2))),
         ],
       ),
     );

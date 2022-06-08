@@ -194,10 +194,10 @@ class _BloodlineState extends State<Bloodline> {
 
     final node10 = Node.Id(
         10); //using deprecated mechanism of directly placing the widget here
-    final node11 = Node.Id(rectangleWidget(11));
-    final node12 = Node.Id(rectangleWidget(12));
+    //final node11 = Node.Id(rectangleWidget(11));
+    //final node12 = Node.Id(rectangleWidget(12));
     graph.addEdge(node1, node2);
-    graph.addEdge(node2, node12);
+    //graph.addEdge(node2, node12);
     // graph.addEdge(node1, node3, paint: Paint()..color = Colors.red);
     graph.addEdge(node1, node3);
     // graph.addEdge(node1, node4, paint: Paint()..color = Colors.blue);
