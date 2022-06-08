@@ -29,7 +29,8 @@ class _CallbackBuchAlgorithm extends BuchheimWalkerAlgorithm {
   }
   @override
   Size run(Graph? graph, double shiftX, double shiftY) {
-    mNodeData.clear();
+    nodeData.clear();
+    initData(graph);
     var firstNode = getFirstNode(graph!);
     firstWalk(graph, firstNode, 0, 0);
     secondWalk(graph, firstNode, 0.0);
