@@ -14,7 +14,17 @@ import 'package:gecko_app/database/dbhelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  Body({Key? key, required this.controller}) : super(key: key);
+  final ScrollController controller;
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return BodyState();
+  }
+}
+
+class BodyState extends State<Body> {
   Future<List<Gecko>> getGeckoData() async {
     Gecko gecko = Gecko(
       id: 1,
@@ -128,7 +138,7 @@ class Body extends StatelessWidget {
     DBHelper().insertGecko(gecko7);
     DBHelper().insertGecko(gecko8);
     var geckos = DBHelper().geckos();
-    print(await geckos);
+    //print(await geckos);
     return await geckos;
   }
 
@@ -138,7 +148,7 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     var gecko = context.watch<GeckoModel>();
     //return buildSingleChildScrollView(size);
-    return CustomScrollView(slivers: [
+    return CustomScrollView(controller: widget.controller, slivers: [
       SliverAppBar(
         floating: true,
         pinned: true,

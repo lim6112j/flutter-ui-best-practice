@@ -5,13 +5,42 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/screens/family/Bloodline.dart';
 
-class MyBottomNavBar extends StatelessWidget {
-  const MyBottomNavBar({
-    Key? key,
-  }) : super(key: key);
+class MyBottomNavBarStateful extends StatefulWidget {
+  MyBottomNavBarStateful({Key? key, required this.hidden}) : super(key: key);
+  var hidden;
+  @override
+  State<StatefulWidget> createState() {
+    return MyBottomNavBarStatefulState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return buildContainer(context, hidden);
+  }
+}
+
+class MyBottomNavBarStatefulState extends State<MyBottomNavBarStateful> {
+  String? message;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    print("######## ${widget.hidden}");
+    return buildContainer(context, widget.hidden);
+  }
+}
+
+AnimatedContainer buildContainer(BuildContext context, bool hidden) {
+  return AnimatedContainer(
+    height: hidden ? 0.0 : 60.0,
+    duration: const Duration(milliseconds: 400),
+    curve: Curves.fastOutSlowIn,
+    child: Container(
         padding: EdgeInsets.only(
             left: kDefaultPadding * 2,
             right: kDefaultPadding * 2,
@@ -50,6 +79,6 @@ class MyBottomNavBar extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-        ));
-  }
+        )),
+  );
 }

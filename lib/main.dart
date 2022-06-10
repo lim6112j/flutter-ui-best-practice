@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
-import 'package:gecko_app/screens/home/home_screen.dart';
+//import 'package:gecko_app/screens/home/home_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gecko_app/screens/home/home_screen_stateful.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         primarySwatch: MaterialColor(kPrimaryColor.value, color),
       ),
-      home: HomeScreen(),
+      home: HomeScreenStateful(),
     );
   }
 }
