@@ -12,13 +12,15 @@ class HeaderWithScrollMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+        padding: EdgeInsets.only(
+            left: kDefaultPadding / 2, right: kDefaultPadding / 2),
         scrollDirection: Axis.horizontal,
         child: Row(children: [
           TextMenu(context, "MyPage"),
           TextMenu(context, "News"),
           TextMenu(context, "Bid"),
           TextMenu(context, "Order"),
-          TextMenu(context, "Order-Tracking"),
+          TextMenu(context, "Tracking"),
           TextMenu(context, "Help"),
           TextMenu(context, "More")
         ]));
@@ -32,7 +34,7 @@ class HeaderWithScrollMenu extends StatelessWidget {
           TextSpan(
               text: "$title\n",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
               )),

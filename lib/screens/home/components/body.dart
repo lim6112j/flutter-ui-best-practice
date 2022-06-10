@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'header_with_searchbox.dart';
 import 'package:gecko_app/database/dbhelper.dart';
 import 'package:gecko_app/models/gecko.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
   Future<List<Gecko>> getGeckoData() async {
@@ -136,11 +137,60 @@ class Body extends StatelessWidget {
     // TODO: implement build
     Size size = MediaQuery.of(context).size;
     var gecko = context.watch<GeckoModel>();
+    //return buildSingleChildScrollView(size);
+    return CustomScrollView(slivers: [
+      SliverAppBar(
+        floating: true,
+        pinned: true,
+        snap: false,
+        centerTitle: false,
+        title: Text('Gecko.com'),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+        ],
+        bottom: buildAppBar(size),
+      ),
+      SliverList(
+        delegate: SliverChildListDelegate([
+          Container(child: buildSingleChildScrollView(size)),
+        ]),
+      ),
+    ]);
+  }
+
+  AppBar buildAppBar(size) {
+    return AppBar(
+        backgroundColor: kPrimaryColor,
+        //leading: IconButton(
+        //icon: SvgPicture.asset("assets/icons/menu.svg"), onPressed: () {}),
+        title: Container(
+            width: double.infinity,
+            height: 35,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.white,
+            ),
+            //child: buildSearch()
+            child: HeaderWithScrollMenu(size: size)));
+  }
+
+  Center buildSearch() {
+    return Center(
+      child: TextField(
+        decoration: InputDecoration(
+            hintText: "Search for Something",
+            prefixIcon: Icon(Icons.search),
+            suffixIcon: Icon(Icons.camera_alt)),
+      ),
+    );
+  }
+
+  SingleChildScrollView buildSingleChildScrollView(Size size) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           //HeaderWithSearchBox(size: size),
-          HeaderWithScrollMenu(size: size),
+          //HeaderWithScrollMenu(size: size),
           TitleWithMoreBtn(
             title: "Gecko",
             press: () {},

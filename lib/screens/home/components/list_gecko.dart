@@ -28,6 +28,7 @@ class ListGecko extends StatelessWidget {
             height: 80 * (snapshot.data.length as int).toDouble(),
             child: ListView.builder(
               primary: false,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
