@@ -17,6 +17,7 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
   ScrollController? _controller;
   String? message;
   bool hidden = false;
+  double prevOffset = 0;
   @override
   void initState() {
     _controller = ScrollController();
@@ -49,5 +50,17 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
         print("reach the top");
       });
     }
+    //if (_controller!.offset >= prevOffset) {
+    //setState(() {
+    //hidden = false;
+    //print("value of hidden : ${hidden}");
+    //});
+    //} else {
+    //setState(() {
+    //hidden = true;
+    //print("value of hidden : ${hidden}");
+    //});
+    //}
+    //prevOffset = _controller!.offset;
   }
 }

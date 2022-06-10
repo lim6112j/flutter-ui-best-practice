@@ -183,7 +183,7 @@ class _HeroDetailViewState extends State<HeroDetailView>
       ..subtreeSeparation = (10)
       ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
     _controllerReset = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
+        vsync: this, duration: const Duration(milliseconds: 600));
   }
 
   @override
