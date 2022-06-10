@@ -111,6 +111,13 @@ class Body extends StatelessWidget {
       images: "img1, img2",
       ancestry: "1/2/4/",
     );
+    var initiaize = true;
+    if (initiaize) {
+      var geckos = await DBHelper().geckos();
+      for (var gecko in geckos) {
+        DBHelper().deleteGecko(gecko.id!);
+      }
+    }
     DBHelper().insertGecko(gecko);
     DBHelper().insertGecko(gecko2);
     DBHelper().insertGecko(gecko3);
