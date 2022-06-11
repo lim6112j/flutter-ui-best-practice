@@ -25,7 +25,7 @@ class ListGecko extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            height: 80 * (snapshot.data.length as int).toDouble(),
+            height: 90 * (snapshot.data.length as int).toDouble(),
             child: ListView.builder(
               primary: false,
               physics: NeverScrollableScrollPhysics(),
@@ -35,6 +35,7 @@ class ListGecko extends StatelessWidget {
                   title: Text(snapshot.data[index].name!),
                   subtitle: Text(snapshot.data[index].color!),
                   trailing: PhotoHero(
+                    tagName: 'tag$index',
                     img: snapshot.data[index].thumbnail,
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(

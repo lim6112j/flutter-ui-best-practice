@@ -38,7 +38,7 @@ class MyBottomNavBarStatefulState extends State<MyBottomNavBarStateful> {
 AnimatedContainer buildContainer(BuildContext context, bool hidden) {
   return AnimatedContainer(
     height: hidden ? 0.0 : 60.0,
-    duration: const Duration(milliseconds: 400),
+    duration: const Duration(milliseconds: 200),
     curve: Curves.fastOutSlowIn,
     child: Container(
         padding: EdgeInsets.only(
