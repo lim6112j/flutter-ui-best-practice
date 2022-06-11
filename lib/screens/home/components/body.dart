@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
-import 'package:gecko_app/screens/home/components/hero_detail_view.dart';
 import 'package:gecko_app/screens/home/components/list_gecko.dart';
-import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:gecko_app/screens/home/components/recommend_geckos.dart';
 import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 import 'package:provider/provider.dart';
-import 'header_with_searchbox.dart';
 import 'package:gecko_app/database/dbhelper.dart';
 import 'package:gecko_app/models/gecko.dart';
-import 'package:flutter_svg/svg.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key, required this.controller}) : super(key: key);

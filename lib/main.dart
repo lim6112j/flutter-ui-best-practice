@@ -4,12 +4,14 @@ import 'package:gecko_app/constants.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gecko_app/screens/home/home_screen_stateful.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
+import 'package:gecko_app/state/ScrollModel.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
-  runApp(
-    ChangeNotifierProvider(create: (context) => GeckoModel(), child: MyApp()),
-  );
+void main() {
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => GeckoModel()),
+    ChangeNotifierProvider(create: (context) => ScrollModel()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
