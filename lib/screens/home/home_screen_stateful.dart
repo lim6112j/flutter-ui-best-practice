@@ -39,6 +39,7 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
   void dispose() {
     // TODO: implement dispose
     _debounce?.cancel();
+    _controller?.dispose();
     super.dispose();
   }
 

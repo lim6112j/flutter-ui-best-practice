@@ -7,7 +7,7 @@ import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 import 'package:provider/provider.dart';
-import 'package:gecko_app/database/dbhelper.dart';
+import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 
 class Body extends StatefulWidget {
@@ -15,7 +15,6 @@ class Body extends StatefulWidget {
   final ScrollController controller;
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return BodyState();
   }
 }
@@ -120,29 +119,34 @@ class BodyState extends State<Body> {
     );
     var initiaize = true;
     if (initiaize) {
-      var geckos = await DBHelper().geckos();
+      var geckos = await SqfliteHelper().geckos();
       for (var gecko in geckos) {
-        DBHelper().deleteGecko(gecko.id!);
+        SqfliteHelper().deleteGecko(gecko.id!);
       }
     }
-    DBHelper().insertGecko(gecko);
-    DBHelper().insertGecko(gecko2);
-    DBHelper().insertGecko(gecko3);
-    DBHelper().insertGecko(gecko4);
-    DBHelper().insertGecko(gecko5);
-    DBHelper().insertGecko(gecko6);
-    DBHelper().insertGecko(gecko7);
-    DBHelper().insertGecko(gecko8);
-    var geckos = DBHelper().geckos();
+    SqfliteHelper().insertGecko(gecko);
+    SqfliteHelper().insertGecko(gecko2);
+    SqfliteHelper().insertGecko(gecko3);
+    SqfliteHelper().insertGecko(gecko4);
+    SqfliteHelper().insertGecko(gecko5);
+    SqfliteHelper().insertGecko(gecko6);
+    SqfliteHelper().insertGecko(gecko7);
+    SqfliteHelper().insertGecko(gecko8);
+    var geckos = SqfliteHelper().geckos();
     //print(await geckos);
     return await geckos;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     Size size = MediaQuery.of(context).size;
-    var gecko = context.watch<GeckoModel>();
     //return buildSingleChildScrollView(size);
     return CustomScrollView(controller: widget.controller, slivers: [
       SliverAppBar(

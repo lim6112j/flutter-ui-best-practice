@@ -3,35 +3,38 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:gecko_app/models/gecko.dart';
 
-class DBHelper {
-  DBHelper._();
-  static final DBHelper _db = DBHelper._();
-  factory DBHelper() => _db;
+class SqfliteHelper {
+  SqfliteHelper._();
+  static final SqfliteHelper _db = SqfliteHelper._();
+  factory SqfliteHelper() => _db;
   static Database? _database;
   Future<Database> get database async {
     return _database ??= await initDB();
   }
+
   initDB() async {
     return openDatabase(
-    join(await getDatabasesPath(), 'gecko_database.db'),
-    // When the database is first created, create a table to store geckos.
-    onCreate: (db, version) {
-      // Run the CREATE TABLE statement on the database.
-      return db.execute(
-        'CREATE TABLE geckos (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, origin TEXT, color TEXT, father INTEGER, mother INTEGER, thumbnail TEXT, images TEXT, ancestry TEXT)',
-      );
-    },
-    onUpgrade: _onUpgrade,
-    // Set the version. This executes the onCreate function and provides a
-    // path to perform database upgrades and downgrades.
-    version: 10,
+      join(await getDatabasesPath(), 'gecko_database.db'),
+      // When the database is first created, create a table to store geckos.
+      onCreate: (db, version) {
+        // Run the CREATE TABLE statement on the database.
+        return db.execute(
+          'CREATE TABLE geckos (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, origin TEXT, color TEXT, father INTEGER, mother INTEGER, thumbnail TEXT, images TEXT, ancestry TEXT)',
+        );
+      },
+      onUpgrade: _onUpgrade,
+      // Set the version. This executes the onCreate function and provides a
+      // path to perform database upgrades and downgrades.
+      version: 10,
     );
   }
+
   void _onUpgrade(Database db, int oldVersion, int newVersion) {
-    if(oldVersion < newVersion) {
+    if (oldVersion < newVersion) {
       db.execute("ALTER TABLE geckos ADD COLUMN ancestry TEXT;");
     }
   }
+
   // Define a function that inserts geckos into the database
   Future<void> insertGecko(Gecko gecko) async {
     // Get a reference to the database.
@@ -80,8 +83,9 @@ class DBHelper {
     // Query the table for all The Geckos.
     List<Map<String, dynamic>> maps = [];
     for (var i = 0; i < args.length; i++) {
-      List<Map<String, dynamic>> mp = await db.query('geckos', where: 'id = ?', whereArgs: [args[i]]);
-       maps..addAll(mp);
+      List<Map<String, dynamic>> mp =
+          await db.query('geckos', where: 'id = ?', whereArgs: [args[i]]);
+      maps..addAll(mp);
     }
     // Convert the List<Map<String, dynamic> into a List<Gecko>.
     return List.generate(maps.length, (i) {
@@ -99,6 +103,7 @@ class DBHelper {
       );
     });
   }
+
   Future<void> updateGecko(Gecko gecko) async {
     // Get a reference to the database.
     final db = await database;

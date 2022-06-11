@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
-import 'package:gecko_app/database/dbhelper.dart';
+import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:graphview/GraphView.dart';
@@ -140,7 +140,7 @@ class _HeroDetailViewState extends State<HeroDetailView>
   Future<List<Gecko>> getParents() async {
     var ancestry = widget.gecko.ancestry;
     var arr = ancestry!.split('/');
-    List<Gecko> gList = await DBHelper().selectGeckos(arr);
+    List<Gecko> gList = await SqfliteHelper().selectGeckos(arr);
     //print(gList);
     return gList;
   }

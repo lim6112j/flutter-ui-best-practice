@@ -9,7 +9,7 @@ A new Flutter project.
 * run 
 `flutter run`
 ## how to add column
-* add column to dbhelper.dart
+* add column to SqfliteHelper.dart
 * update version number
 * change gecko.dart model
 * delete app from ios simulator 
