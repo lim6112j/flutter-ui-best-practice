@@ -20,6 +20,7 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
   bool hidden = false;
   double prevOffset = 0;
   Timer? _debounce;
+  bool? increasing;
   @override
   void initState() {
     _controller = ScrollController();
@@ -45,16 +46,21 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
 
   void _scrollListener() {
     //print("debounce.isActive : ${_debounce?.isActive}");
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 40), () {
-      print("debounce!!");
-      if (_controller!.offset <= prevOffset) {
+    final scrollModel = context.read<ScrollModel>();
+    //if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 100), () {
+      if (_controller!.offset <= prevOffset - 10 && (increasing ?? true)) {
         hidden = false;
-        Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+        increasing = false;
+        //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+        scrollModel.changeHidden(false);
         print("value of hidden : ${hidden}");
-      } else {
+      } else if (_controller!.offset >= prevOffset + 10 &&
+          !(increasing ?? false)) {
         hidden = true;
-        Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+        increasing = true;
+        //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+        scrollModel.changeHidden(true);
         print("value of hidden : ${hidden}");
       }
       prevOffset = _controller!.offset;
@@ -63,13 +69,15 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
     if (_controller!.offset >= _controller!.position.maxScrollExtent &&
         !_controller!.position.outOfRange) {
       hidden = true;
-      Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+      //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+      scrollModel.changeHidden(true);
       print("reach the bottom");
     }
     if (_controller!.offset <= _controller!.position.minScrollExtent &&
         !_controller!.position.outOfRange) {
       hidden = false;
-      Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+      //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+      scrollModel.changeHidden(false);
       print("reach the top");
     }
   }

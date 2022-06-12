@@ -8,7 +8,6 @@ import 'package:gecko_app/state/ScrollModel.dart';
 class MyBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("######## nav bar rerendering ... ");
     return Consumer<ScrollModel>(
         builder: (context, model, child) =>
             buildContainer(context, model.hidden));
@@ -16,6 +15,7 @@ class MyBottomNavBar extends StatelessWidget {
 }
 
 AnimatedContainer buildContainer(BuildContext context, bool hidden) {
+  print("######## nav bar rerendering ... ");
   return AnimatedContainer(
     height: hidden ? 0.0 : 60.0,
     duration: const Duration(milliseconds: 200),
