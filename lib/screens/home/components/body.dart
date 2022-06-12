@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
@@ -10,16 +12,16 @@ import 'package:provider/provider.dart';
 import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 
-class Body extends StatefulWidget {
-  Body({Key? key, required this.controller}) : super(key: key);
-  final ScrollController controller;
-  @override
-  State<StatefulWidget> createState() {
-    return BodyState();
-  }
-}
+import '../../../state/ScrollModel.dart';
 
-class BodyState extends State<Body> {
+class Body extends StatelessWidget {
+  Body({Key? key}) : super(key: key);
+  ScrollController _controller = ScrollController();
+  Timer? _debounce;
+  bool hidden = false;
+  double prevOffset = 0;
+  bool? increasing;
+  ScrollModel? scrollModel;
   Future<List<Gecko>> getGeckoData() async {
     Gecko gecko = Gecko(
       id: 1,
@@ -138,17 +140,14 @@ class BodyState extends State<Body> {
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    scrollModel = context.read<ScrollModel>();
+    _controller.addListener(_scrollListener);
     Size size = MediaQuery.of(context).size;
     //return buildSingleChildScrollView(size);
-    return CustomScrollView(controller: widget.controller, slivers: [
+    return CustomScrollView(controller: _controller, slivers: [
       SliverAppBar(
         floating: true,
         pinned: true,
@@ -193,6 +192,43 @@ class BodyState extends State<Body> {
             suffixIcon: Icon(Icons.camera_alt)),
       ),
     );
+  }
+
+  void _scrollListener() {
+    //print("debounce.isActive : ${_debounce?.isActive}");
+    //if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 100), () {
+      if (_controller.offset <= prevOffset - 10 && (increasing ?? true)) {
+        hidden = false;
+        increasing = false;
+        //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+        scrollModel?.changeHidden(false);
+        print("value of hidden : ${hidden}");
+      } else if (_controller.offset >= prevOffset + 10 &&
+          !(increasing ?? false)) {
+        hidden = true;
+        increasing = true;
+        //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+        scrollModel?.changeHidden(true);
+        print("value of hidden : ${hidden}");
+      }
+      prevOffset = _controller.offset;
+    });
+
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      hidden = true;
+      //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+      scrollModel?.changeHidden(true);
+      print("reach the bottom");
+    }
+    if (_controller.offset <= _controller.position.minScrollExtent &&
+        !_controller.position.outOfRange) {
+      hidden = false;
+      //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+      scrollModel?.changeHidden(false);
+      print("reach the top");
+    }
   }
 
   SingleChildScrollView buildSingleChildScrollView(Size size) {

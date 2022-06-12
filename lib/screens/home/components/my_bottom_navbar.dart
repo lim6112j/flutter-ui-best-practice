@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/screens/family/Bloodline.dart';
+import 'package:gecko_app/screens/settings/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 
@@ -56,7 +57,13 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
             ),
             IconButton(
               icon: SvgPicture.asset("assets/icons/user-icon.svg"),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Settings(),
+                    ));
+              },
             ),
           ],
         )),
