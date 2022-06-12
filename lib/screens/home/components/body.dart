@@ -233,19 +233,7 @@ class Body extends StatelessWidget {
 
   SingleChildScrollView buildSingleChildScrollView(Size size) {
     return SingleChildScrollView(
-      child: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          if (details.primaryVelocity! < 0) {
-            print("horizontal drag right ");
-          } else if (details.primaryVelocity! > 0) {
-            print("horizontal drag left ");
-          }
-        },
-        onDoubleTap: () {
-          print("Double Tapping");
-        },
-        child: mainPage(),
-      ),
+      child: mainPage(),
     );
   }
 

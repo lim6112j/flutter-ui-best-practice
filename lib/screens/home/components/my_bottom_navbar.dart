@@ -6,17 +6,28 @@ import 'package:gecko_app/screens/settings/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 
-class MyBottomNavBar extends StatelessWidget {
+class MyBottomNavBar extends StatefulWidget {
+  MyBottomNavBar(this.controller, this.index);
+  final PageController controller;
+  final int index;
   @override
-  Widget build(BuildContext context) {
-    return Consumer<ScrollModel>(
-        builder: (context, model, child) =>
-            buildContainer(context, model.hidden));
+  State<StatefulWidget> createState() {
+    return MyBottomNavBarState();
   }
 }
 
-AnimatedContainer buildContainer(BuildContext context, bool hidden) {
-  print("######## nav bar rerendering ... ");
+class MyBottomNavBarState extends State<MyBottomNavBar> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ScrollModel>(
+        builder: (context, model, child) => buildContainer(
+            context, model.hidden, widget.controller, widget.index));
+  }
+}
+
+AnimatedContainer buildContainer(
+    BuildContext context, bool hidden, PageController controller, int index) {
+  print("######## nav bar rerendering ... ${index}");
   return AnimatedContainer(
     height: hidden ? 0.0 : 60.0,
     duration: const Duration(milliseconds: 200),
@@ -41,28 +52,30 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: SvgPicture.asset("assets/icons/flower.svg"),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: SvgPicture.asset("assets/icons/heart-icon.svg"),
+              icon: index == 0
+                  ? SvgPicture.asset("assets/icons/flower_white.svg")
+                  : SvgPicture.asset("assets/icons/flower.svg"),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          Bloodline(title: "Family Bloodline"),
-                    ));
+                controller.animateToPage(0,
+                    duration: Duration(milliseconds: 400), curve: Curves.ease);
               },
             ),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/user-icon.svg"),
+              icon: index == 1
+                  ? SvgPicture.asset("assets/icons/heart-icon-white.svg")
+                  : SvgPicture.asset("assets/icons/heart-icon.svg"),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Settings(),
-                    ));
+                controller.animateToPage(1,
+                    duration: Duration(milliseconds: 400), curve: Curves.ease);
+              },
+            ),
+            IconButton(
+              icon: index == 2
+                  ? SvgPicture.asset("assets/icons/user-icon-white.svg")
+                  : SvgPicture.asset("assets/icons/user-icon.svg"),
+              onPressed: () {
+                controller.animateToPage(2,
+                    duration: Duration(milliseconds: 400), curve: Curves.ease);
               },
             ),
           ],
