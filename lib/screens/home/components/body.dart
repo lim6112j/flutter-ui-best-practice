@@ -233,26 +233,42 @@ class Body extends StatelessWidget {
 
   SingleChildScrollView buildSingleChildScrollView(Size size) {
     return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          //HeaderWithSearchBox(size: size),
-          //HeaderWithScrollMenu(size: size),
-          TitleWithMoreBtn(
-            title: "Gecko",
-            press: () {},
-          ),
-          RecommendGeckos(
-            geckos: getGeckoData(),
-          ),
-          TitleWithMoreBtn(
-            title: "Featured Geckos",
-            press: () {},
-          ),
-          FeaturedGeckos(),
-          ListGecko(geckos: getGeckoData()),
-          SizedBox(height: kDefaultPadding),
-        ],
+      child: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity! < 0) {
+            print("horizontal drag right ");
+          } else if (details.primaryVelocity! > 0) {
+            print("horizontal drag left ");
+          }
+        },
+        onDoubleTap: () {
+          print("Double Tapping");
+        },
+        child: mainPage(),
       ),
+    );
+  }
+
+  Column mainPage() {
+    return Column(
+      children: <Widget>[
+        //HeaderWithSearchBox(size: size),
+        //HeaderWithScrollMenu(size: size),
+        TitleWithMoreBtn(
+          title: "Gecko Rocks",
+          press: () {},
+        ),
+        RecommendGeckos(
+          geckos: getGeckoData(),
+        ),
+        TitleWithMoreBtn(
+          title: "Featured Geckos",
+          press: () {},
+        ),
+        FeaturedGeckos(),
+        ListGecko(geckos: getGeckoData()),
+        SizedBox(height: kDefaultPadding),
+      ],
     );
   }
 }
