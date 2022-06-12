@@ -21,10 +21,12 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
   double prevOffset = 0;
   Timer? _debounce;
   bool? increasing;
+  ScrollModel? scrollModel;
   @override
   void initState() {
     _controller = ScrollController();
     _controller!.addListener(_scrollListener);
+    scrollModel = context.read<ScrollModel>();
     super.initState();
   }
 
@@ -46,21 +48,20 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
 
   void _scrollListener() {
     //print("debounce.isActive : ${_debounce?.isActive}");
-    final scrollModel = context.read<ScrollModel>();
     //if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 100), () {
       if (_controller!.offset <= prevOffset - 10 && (increasing ?? true)) {
         hidden = false;
         increasing = false;
         //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
-        scrollModel.changeHidden(false);
+        scrollModel?.changeHidden(false);
         print("value of hidden : ${hidden}");
       } else if (_controller!.offset >= prevOffset + 10 &&
           !(increasing ?? false)) {
         hidden = true;
         increasing = true;
         //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
-        scrollModel.changeHidden(true);
+        scrollModel?.changeHidden(true);
         print("value of hidden : ${hidden}");
       }
       prevOffset = _controller!.offset;
@@ -70,14 +71,14 @@ class HomeScreenStatefulState extends State<HomeScreenStateful> {
         !_controller!.position.outOfRange) {
       hidden = true;
       //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
-      scrollModel.changeHidden(true);
+      scrollModel?.changeHidden(true);
       print("reach the bottom");
     }
     if (_controller!.offset <= _controller!.position.minScrollExtent &&
         !_controller!.position.outOfRange) {
       hidden = false;
       //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
-      scrollModel.changeHidden(false);
+      scrollModel?.changeHidden(false);
       print("reach the top");
     }
   }
