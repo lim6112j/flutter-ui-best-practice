@@ -7,21 +7,30 @@ import 'package:gecko_app/screens/home/components/list_gecko.dart';
 import 'package:gecko_app/screens/home/components/recommend_geckos.dart';
 import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
-import 'package:gecko_app/state/GeckoModel.dart';
 import 'package:provider/provider.dart';
 import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 
 import '../../../state/ScrollModel.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   ScrollController _controller = ScrollController();
-  Timer? _debounce;
+
   bool hidden = false;
+
   double prevOffset = 0;
+
   bool? increasing;
+
   ScrollModel? scrollModel;
+
   Future<List<Gecko>> getGeckoData() async {
     Gecko gecko = Gecko(
       id: 1,
@@ -197,20 +206,18 @@ class Body extends StatelessWidget {
   void _scrollListener() {
     //print("debounce.isActive : ${_debounce?.isActive}");
     //if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 100), () {
+    Timer(const Duration(milliseconds: 100), () {
       if (_controller.offset <= prevOffset - 10 && (increasing ?? true)) {
         hidden = false;
         increasing = false;
         //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
         scrollModel?.changeHidden(false);
-        print("value of hidden : ${hidden}");
       } else if (_controller.offset >= prevOffset + 10 &&
           !(increasing ?? false)) {
         hidden = true;
         increasing = true;
         //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
         scrollModel?.changeHidden(true);
-        print("value of hidden : ${hidden}");
       }
       prevOffset = _controller.offset;
     });

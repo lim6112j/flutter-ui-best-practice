@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gecko_app/constants.dart';
-import 'package:gecko_app/screens/family/Bloodline.dart';
-import 'package:gecko_app/screens/settings/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 
@@ -27,7 +25,6 @@ class MyBottomNavBarState extends State<MyBottomNavBar> {
 
 AnimatedContainer buildContainer(
     BuildContext context, bool hidden, PageController controller, int index) {
-  print("######## nav bar rerendering ... ${index}");
   return AnimatedContainer(
     height: hidden ? 0.0 : 60.0,
     duration: const Duration(milliseconds: 200),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gecko_app/constants.dart';
-import 'package:path/path.dart';
 
 class HeaderWithScrollMenu extends StatelessWidget {
   const HeaderWithScrollMenu({
@@ -16,17 +14,17 @@ class HeaderWithScrollMenu extends StatelessWidget {
             left: kDefaultPadding / 2, right: kDefaultPadding / 2),
         scrollDirection: Axis.horizontal,
         child: Row(children: [
-          TextMenu(context, "MyPage"),
-          TextMenu(context, "News"),
-          TextMenu(context, "Bid"),
-          TextMenu(context, "Order"),
-          TextMenu(context, "Tracking"),
-          TextMenu(context, "Help"),
-          TextMenu(context, "More")
+          textMenu(context, "MyPage"),
+          textMenu(context, "News"),
+          textMenu(context, "Bid"),
+          textMenu(context, "Order"),
+          textMenu(context, "Tracking"),
+          textMenu(context, "Help"),
+          textMenu(context, "More")
         ]));
   }
 
-  Widget TextMenu(BuildContext context, String title) {
+  Widget textMenu(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding / 2),
       child: RichText(

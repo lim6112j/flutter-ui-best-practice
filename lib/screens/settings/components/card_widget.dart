@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gecko_app/constants.dart';
 
 class CardWidget extends StatefulWidget {
   @override
@@ -11,7 +10,6 @@ class CardWidget extends StatefulWidget {
 class _CardWidgetState extends State<CardWidget> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     double fontSize(double size) {
       return size * width / 414;

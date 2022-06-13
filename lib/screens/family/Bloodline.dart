@@ -164,7 +164,7 @@ class _BloodlineState extends State<Bloodline> {
               size: 15,
             ),
             Text(
-              ' Gecko ${a}',
+              ' Gecko $a',
               style: TextStyle(color: Colors.white),
             ),
           ],
@@ -178,6 +178,7 @@ class _BloodlineState extends State<Bloodline> {
 
   @override
   void initState() {
+    super.initState();
     final node1 = Node.Id(1);
     final node2 = Node.Id(2);
     final node3 = Node.Id(3);
@@ -186,14 +187,13 @@ class _BloodlineState extends State<Bloodline> {
     final node6 = Node.Id(6);
     final node8 = Node.Id(7);
     final node7 = Node.Id(8);
-    final node9 = Node.Id(9);
+    //final node9 = Node.Id(9);
     //final node10 = Node(rectangleWidget(
     //10)); //using deprecated mechanism of directly placing the widget here
     //final node11 = Node(rectangleWidget(11));
     //final node12 = Node(rectangleWidget(12));
 
-    final node10 = Node.Id(
-        10); //using deprecated mechanism of directly placing the widget here
+    //final node10 = Node.Id(10); //using deprecated mechanism of directly placing the widget here
     //final node11 = Node.Id(rectangleWidget(11));
     //final node12 = Node.Id(rectangleWidget(12));
     graph.addEdge(node1, node2);

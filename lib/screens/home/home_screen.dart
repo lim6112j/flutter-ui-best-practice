@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gecko_app/pages/blue_page.dart';
-import 'package:gecko_app/pages/green_page.dart';
-import 'package:gecko_app/pages/pink_page.dart';
-import 'package:gecko_app/pages/red_page.dart';
 import 'package:gecko_app/screens/family/Bloodline.dart';
 import 'package:gecko_app/screens/home/components/body.dart';
 import 'package:gecko_app/screens/home/components/my_bottom_navbar.dart';
 import 'package:gecko_app/screens/settings/settings.dart';
-import 'package:gecko_app/state/ScrollModel.dart';
-import 'dart:async';
-
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,22 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  double _bottomNavHeight = 90;
   PageController _pageController = PageController(initialPage: 0);
-  final _bottomNavigationBarItems = [
-    BottomNavigationBarItem(
-        icon: Icon(
-          Icons.star,
-          color: Colors.blue,
-        ),
-        label: 'Blue'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.star, color: Colors.green), label: 'Green'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.star, color: Colors.pink), label: 'Pink'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.star, color: Colors.red), label: 'Red'),
-  ];
   @override
   Widget build(BuildContext context) {
     print("home_screen rendering ....");

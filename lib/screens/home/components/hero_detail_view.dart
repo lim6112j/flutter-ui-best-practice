@@ -38,7 +38,6 @@ class _CallbackBuchAlgorithm extends BuchheimWalkerAlgorithm {
     positionNodes(graph);
     var graphSize = calculateGraphSize(graph);
     shiftCoordinates(graph, (mediaSize.width - graphSize.width) / 2, shiftY);
-    //shiftCoordinates(graph, shiftX, shiftY);
     return calculateGraphSize(graph);
   }
 }
@@ -59,15 +58,15 @@ class _HeroDetailViewState extends State<HeroDetailView>
     }
   }
 
-  void _animateResetInitialize() {
-    _controllerReset.reset();
-    _animationReset = Matrix4Tween(
-      begin: _transformationController.value,
-      end: Matrix4.identity(),
-    ).animate(_controllerReset);
-    _animationReset!.addListener(_onAnimateReset);
-    _controllerReset.forward();
-  }
+  //void _animateResetInitialize() {
+  //_controllerReset.reset();
+  //_animationReset = Matrix4Tween(
+  //begin: _transformationController.value,
+  //end: Matrix4.identity(),
+  //).animate(_controllerReset);
+  //_animationReset!.addListener(_onAnimateReset);
+  //_controllerReset.forward();
+  //}
 
   void _animateResetStop() {
     _controllerReset.stop();
@@ -148,6 +147,7 @@ class _HeroDetailViewState extends State<HeroDetailView>
   double log2(num x) => log(x) / ln2;
   @override
   void initState() {
+    super.initState();
     // final node1 = Node.Id(1);
     // final node2 = Node.Id(2);
     // final node3 = Node.Id(3);

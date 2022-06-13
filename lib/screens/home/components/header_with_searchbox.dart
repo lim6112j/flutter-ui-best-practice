@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gecko_app/constants.dart';
 
 class HeaderWithSearchBox extends StatelessWidget {
