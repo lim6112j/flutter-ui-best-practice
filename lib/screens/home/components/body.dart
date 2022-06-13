@@ -166,7 +166,7 @@ class _BodyState extends State<Body> {
     return CustomScrollView(controller: _controller, slivers: [
       SliverAppBar(
         floating: true,
-        pinned: true,
+        pinned: false,
         snap: false,
         centerTitle: false,
         title: Text('Gecko.com'),
