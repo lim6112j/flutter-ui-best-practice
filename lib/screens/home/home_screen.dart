@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gecko_app/pages/amber_page.dart';
 import 'package:gecko_app/pages/blue_page.dart';
-import 'package:gecko_app/screens/family/Bloodline.dart';
-import 'package:gecko_app/screens/home/components/body.dart';
+import 'package:gecko_app/pages/new_page.dart';
+import 'package:gecko_app/pages/pink_page.dart';
+import 'package:gecko_app/pages/red_page.dart';
 import 'package:gecko_app/screens/home/components/my_bottom_navbar.dart';
-import 'package:gecko_app/screens/settings/settings.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,13 @@ class HomeScreenState extends State<HomeScreen>
     _controller = ScrollController();
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _tabController!.dispose();
   }
 
   @override
@@ -68,33 +76,10 @@ class HomeScreenState extends State<HomeScreen>
         }),
         body: TabBarView(
           controller: _tabController,
-          children: [
-            Body(),
-            BluePage(),
-            Settings(),
-          ],
-          //onPageChanged: (newIndex) {
-          //setState(() {
-          //scrollModel.changeHidden(false);
-          //_currentIndex = newIndex;
-          //});
-          //},
+          children: [NewPage(), RedPage(), AmberPage()],
         ),
       ),
       bottomNavigationBar: MyBottomNavBar(),
-      //bottomNavigationBar: SizedBox(
-      //height: _bottomNavHeight,
-      //child: BottomNavigationBar(
-      //enableFeedback: true,
-      //currentIndex: _currentIndex,
-      //onTap: (newIndex) {
-      //_pageController.animateToPage(newIndex,
-      //duration: Duration(milliseconds: 400), curve: Curves.ease);
-      //},
-      //items: _bottomNavigationBarItems,
-      ////     type: BottomNavigationBarType.fixed
-      //),
-      //)
     );
   }
 
