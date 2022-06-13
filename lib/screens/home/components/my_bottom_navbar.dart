@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 
 class MyBottomNavBar extends StatefulWidget {
-  MyBottomNavBar(this.controller, this.index);
-  final PageController controller;
-  final int index;
+  MyBottomNavBar();
   @override
   State<StatefulWidget> createState() {
     return MyBottomNavBarState();
@@ -17,14 +15,14 @@ class MyBottomNavBar extends StatefulWidget {
 class MyBottomNavBarState extends State<MyBottomNavBar> {
   @override
   Widget build(BuildContext context) {
+    print("my bottom nav bar rendering ...");
     return Consumer<ScrollModel>(
-        builder: (context, model, child) => buildContainer(
-            context, model.hidden, widget.controller, widget.index));
+        builder: (context, model, child) =>
+            buildContainer(context, model.hidden));
   }
 }
 
-AnimatedContainer buildContainer(
-    BuildContext context, bool hidden, PageController controller, int index) {
+AnimatedContainer buildContainer(BuildContext context, bool hidden) {
   return AnimatedContainer(
     height: hidden ? 0.0 : 60.0,
     duration: const Duration(milliseconds: 200),
@@ -49,31 +47,15 @@ AnimatedContainer buildContainer(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: index == 0
-                  ? SvgPicture.asset("assets/icons/flower_white.svg")
-                  : SvgPicture.asset("assets/icons/flower.svg"),
-              onPressed: () {
-                controller.animateToPage(0,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
-              },
+              icon: SvgPicture.asset("assets/icons/flower.svg"),
+              onPressed: () {},
             ),
             IconButton(
-              icon: index == 1
-                  ? SvgPicture.asset("assets/icons/heart-icon-white.svg")
-                  : SvgPicture.asset("assets/icons/heart-icon.svg"),
-              onPressed: () {
-                controller.animateToPage(1,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
-              },
-            ),
+                icon: SvgPicture.asset("assets/icons/heart-icon.svg"),
+                onPressed: () {}),
             IconButton(
-              icon: index == 2
-                  ? SvgPicture.asset("assets/icons/user-icon-white.svg")
-                  : SvgPicture.asset("assets/icons/user-icon.svg"),
-              onPressed: () {
-                controller.animateToPage(2,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
-              },
+              icon: SvgPicture.asset("assets/icons/user-icon.svg"),
+              onPressed: () {},
             ),
           ],
         )),

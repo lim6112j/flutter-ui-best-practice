@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
         textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         primarySwatch: MaterialColor(kPrimaryColor.value, color),
       ),
-      home: HomeScreen(),
+      home: HomeScreen(
+        title: "Gecko Home",
+      ),
     );
   }
 }
