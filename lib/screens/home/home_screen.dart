@@ -3,6 +3,8 @@ import 'package:gecko_app/screens/family/Bloodline.dart';
 import 'package:gecko_app/screens/home/components/body.dart';
 import 'package:gecko_app/screens/home/components/my_bottom_navbar.dart';
 import 'package:gecko_app/screens/settings/settings.dart';
+import 'package:gecko_app/state/ScrollModel.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class HomeScreenState extends State<HomeScreen> {
   PageController _pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
+    ScrollModel scrollModel = context.read<ScrollModel>();
     print("home_screen rendering ....");
     return Scaffold(
       body: PageView(
@@ -28,6 +31,7 @@ class HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         onPageChanged: (newIndex) {
           setState(() {
+            scrollModel.changeHidden(false);
             _currentIndex = newIndex;
           });
         },
