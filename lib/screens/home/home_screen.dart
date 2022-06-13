@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gecko_app/pages/blue_page.dart';
 import 'package:gecko_app/screens/family/Bloodline.dart';
 import 'package:gecko_app/screens/home/components/body.dart';
 import 'package:gecko_app/screens/home/components/my_bottom_navbar.dart';
@@ -25,7 +26,7 @@ class HomeScreenState extends State<HomeScreen> {
       body: PageView(
         children: [
           Body(),
-          Bloodline(title: "gecko"),
+          BluePage(),
           Settings(),
         ],
         controller: _pageController,
