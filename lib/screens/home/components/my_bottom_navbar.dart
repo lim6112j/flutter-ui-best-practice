@@ -4,27 +4,16 @@ import 'package:gecko_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 
-class MyBottomNavBar extends StatefulWidget {
-  MyBottomNavBar(this.controller, this.index);
-  final PageController controller;
-  final int index;
-  @override
-  State<StatefulWidget> createState() {
-    return MyBottomNavBarState();
-  }
-}
-
-class MyBottomNavBarState extends State<MyBottomNavBar> {
+class MyBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ScrollModel>(
-        builder: (context, model, child) => buildContainer(
-            context, model.hidden, widget.controller, widget.index));
+        builder: (context, model, child) =>
+            buildContainer(context, model.hidden));
   }
 }
 
-AnimatedContainer buildContainer(
-    BuildContext context, bool hidden, PageController controller, int index) {
+AnimatedContainer buildContainer(BuildContext context, bool hidden) {
   return AnimatedContainer(
     height: hidden ? 0.0 : 60.0,
     duration: const Duration(milliseconds: 200),
@@ -49,30 +38,45 @@ AnimatedContainer buildContainer(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: index == 0
-                  ? SvgPicture.asset("assets/icons/flower_white.svg")
-                  : SvgPicture.asset("assets/icons/flower.svg"),
+              icon: SvgPicture.asset("assets/icons/flower_white.svg"),
               onPressed: () {
-                controller.animateToPage(0,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return ColoredBox(
+                          color: kPrimaryColor,
+                          child: Center(
+                            child: Text("My Geckos"),
+                          ));
+                    });
               },
             ),
             IconButton(
-              icon: index == 1
-                  ? SvgPicture.asset("assets/icons/heart-icon-white.svg")
-                  : SvgPicture.asset("assets/icons/heart-icon.svg"),
+              icon: SvgPicture.asset("assets/icons/heart-icon-white.svg"),
               onPressed: () {
-                controller.animateToPage(1,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return ColoredBox(
+                          color: kPrimaryColor,
+                          child: Center(
+                            child: Text("Login & My page"),
+                          ));
+                    });
               },
             ),
             IconButton(
-              icon: index == 2
-                  ? SvgPicture.asset("assets/icons/user-icon-white.svg")
-                  : SvgPicture.asset("assets/icons/user-icon.svg"),
+              icon: SvgPicture.asset("assets/icons/user-icon-white.svg"),
               onPressed: () {
-                controller.animateToPage(2,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return ColoredBox(
+                          color: kPrimaryColor,
+                          child: Center(
+                            child: Text("Settings"),
+                          ));
+                    });
               },
             ),
           ],

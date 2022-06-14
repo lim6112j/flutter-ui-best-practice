@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
 import 'package:gecko_app/screens/home/components/list_gecko.dart';
@@ -149,6 +150,12 @@ class _BodyState extends State<Body> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     _controller.dispose();
@@ -157,8 +164,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
+    print("body is rerendering >>>>>>>>>>");
     scrollModel = context.read<ScrollModel>();
     _controller.addListener(_scrollListener);
     Size size = MediaQuery.of(context).size;
@@ -170,6 +176,8 @@ class _BodyState extends State<Body> {
         snap: false,
         centerTitle: false,
         title: Text('Gecko.com'),
+        leading: IconButton(
+            icon: SvgPicture.asset("assets/icons/menu.svg"), onPressed: () {}),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
         ],
@@ -210,6 +218,31 @@ class _BodyState extends State<Body> {
     );
   }
 
+  SingleChildScrollView buildSingleChildScrollView(Size size) {
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          //HeaderWithSearchBox(size: size),
+          //HeaderWithScrollMenu(size: size),
+          TitleWithMoreBtn(
+            title: "Gecko Rocks",
+            press: () {},
+          ),
+          RecommendGeckos(
+            geckos: getGeckoData(),
+          ),
+          TitleWithMoreBtn(
+            title: "Featured Geckos",
+            press: () {},
+          ),
+          FeaturedGeckos(),
+          ListGecko(geckos: getGeckoData()),
+          SizedBox(height: kDefaultPadding),
+        ],
+      ),
+    );
+  }
+
   void _scrollListener() {
     //print("debounce.isActive : ${_debounce?.isActive}");
     //if (_debounce?.isActive ?? false) _debounce?.cancel();
@@ -243,34 +276,5 @@ class _BodyState extends State<Body> {
       scrollModel?.changeHidden(false);
       print("reach the top");
     }
-  }
-
-  SingleChildScrollView buildSingleChildScrollView(Size size) {
-    return SingleChildScrollView(
-      child: mainPage(),
-    );
-  }
-
-  Column mainPage() {
-    return Column(
-      children: <Widget>[
-        //HeaderWithSearchBox(size: size),
-        //HeaderWithScrollMenu(size: size),
-        TitleWithMoreBtn(
-          title: "Gecko Rocks",
-          press: () {},
-        ),
-        RecommendGeckos(
-          geckos: getGeckoData(),
-        ),
-        TitleWithMoreBtn(
-          title: "Featured Geckos",
-          press: () {},
-        ),
-        FeaturedGeckos(),
-        ListGecko(geckos: getGeckoData()),
-        SizedBox(height: kDefaultPadding),
-      ],
-    );
   }
 }
