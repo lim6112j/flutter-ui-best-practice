@@ -46,7 +46,10 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
                       return ColoredBox(
                           color: kPrimaryColor,
                           child: Center(
-                            child: Text("My Geckos"),
+                            child: Text(
+                              "My Geckos",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ));
                     });
               },
@@ -60,7 +63,10 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
                       return ColoredBox(
                           color: kPrimaryColor,
                           child: Center(
-                            child: Text("Login & My page"),
+                            child: Text(
+                              "Login & My page",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ));
                     });
               },
@@ -72,10 +78,25 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
                     context: context,
                     builder: (context) {
                       return ColoredBox(
-                          color: kPrimaryColor,
-                          child: Center(
-                            child: Text("Settings"),
-                          ));
+                        color: kPrimaryColor,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Settings",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              "Customizing settings",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              "you favorites",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      );
                     });
               },
             ),
