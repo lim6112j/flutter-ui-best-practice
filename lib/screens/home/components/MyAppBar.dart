@@ -3,8 +3,9 @@ import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
 
 class MyAppBar extends StatefulWidget {
-  MyAppBar(this.size);
+  MyAppBar(this.size, this.items);
   final Size size;
+  final List<String> items;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -27,6 +28,9 @@ class MyAppBarState extends State<MyAppBar> {
               color: Colors.white,
             ),
             //child: buildSearch()
-            child: HeaderWithScrollMenu(size: widget.size)));
+            child: HeaderWithScrollMenu(
+              size: widget.size,
+              items: widget.items,
+            )));
   }
 }

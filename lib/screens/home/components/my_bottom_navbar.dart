@@ -38,7 +38,7 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: SvgPicture.asset("assets/icons/flower_white.svg"),
+              icon: Icon(Icons.shopping_bag, color: Colors.white),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -55,7 +55,7 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
               },
             ),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/heart-icon-white.svg"),
+              icon: Icon(Icons.manage_accounts, color: Colors.white),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -72,32 +72,42 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
               },
             ),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/user-icon-white.svg"),
+              icon: Icon(Icons.help, color: Colors.white),
               onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return ColoredBox(
-                        color: kPrimaryColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Settings",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              "Customizing settings",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              "you favorites",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
+                final snackBar = SnackBar(
+                  backgroundColor: kPrimaryColor,
+                  content: const Text("Yay !!!!"),
+                  action: SnackBarAction(
+                    textColor: Colors.white,
+                    label: 'undo',
+                    onPressed: () {},
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                //showModalBottomSheet(
+                //context: context,
+                //builder: (context) {
+                //return ColoredBox(
+                //color: kPrimaryColor,
+                //child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                //children: [
+                //Text(
+                //"Settings",
+                //style: TextStyle(color: Colors.white),
+                //),
+                //Text(
+                //"Customizing settings",
+                //style: TextStyle(color: Colors.white),
+                //),
+                //Text(
+                //"you favorites",
+                //style: TextStyle(color: Colors.white),
+                //),
+                //],
+                //),
+                //);
+                //});
               },
             ),
           ],

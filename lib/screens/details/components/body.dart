@@ -33,8 +33,15 @@ class Body extends StatelessWidget {
                     showModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return Center(
-                            child: Text("how to buy"),
+                          return ColoredBox(
+                            color: kPrimaryColor,
+                            child: Center(
+                              child: Text(
+                                "how to buy",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
                           );
                         });
                   },
@@ -57,8 +64,13 @@ class Body extends StatelessWidget {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return Center(
-                              child: Text("show description"),
+                            return ColoredBox(
+                              color: kPrimaryColor,
+                              child: Center(
+                                child: Text("show description",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16)),
+                              ),
                             );
                           });
                     },

@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gecko_app/pages/blue_page.dart';
+import 'package:gecko_app/pages/pink_page.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
 import 'package:gecko_app/screens/home/components/list_gecko.dart';
@@ -15,7 +17,8 @@ import 'package:gecko_app/models/gecko.dart';
 import '../../../state/ScrollModel.dart';
 
 class Body extends StatefulWidget {
-  Body({Key? key}) : super(key: key);
+  Body({Key? key, this.items}) : super(key: key);
+  final List<String>? items;
 
   @override
   State<Body> createState() => _BodyState();
@@ -171,15 +174,60 @@ class _BodyState extends State<Body> {
     //return buildSingleChildScrollView(size);
     return CustomScrollView(controller: _controller, slivers: [
       SliverAppBar(
+        automaticallyImplyLeading: true,
         floating: true,
-        pinned: false,
-        snap: false,
-        centerTitle: false,
-        title: Text('Gecko.com'),
-        leading: IconButton(
-            icon: SvgPicture.asset("assets/icons/menu.svg"), onPressed: () {}),
+        pinned: true,
+        snap: true,
+        centerTitle: true,
+        //title: Text('Gecko.com'),
+        //leading: IconButton(
+        //icon: SvgPicture.asset("assets/icons/menu.svg"),
+        //onPressed: () {
+        //Scaffold.of(context).openDrawer();
+        //}),
+        stretch: false,
+        onStretchTrigger: () {
+          // Function callback for stretch
+          return Future<void>.value();
+        },
+        expandedHeight: 250,
+        flexibleSpace: FlexibleSpaceBar(
+          stretchModes: const <StretchMode>[
+            StretchMode.zoomBackground,
+            StretchMode.blurBackground,
+            StretchMode.fadeTitle,
+          ],
+          centerTitle: true,
+          title: const Text('Gecko World'),
+          background: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image.asset(
+                "assets/images/blue.png",
+                fit: BoxFit.cover,
+              ),
+              const DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment(0.0, 0.5),
+                    end: Alignment.center,
+                    colors: <Color>[
+                      Color(0x60000000),
+                      Color(0x00000000),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => BluePage()));
+              },
+              icon: Icon(Icons.shopping_cart))
         ],
         bottom: buildAppBar(size),
       ),
@@ -193,6 +241,7 @@ class _BodyState extends State<Body> {
 
   AppBar buildAppBar(size) {
     return AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
         //leading: IconButton(
         //icon: SvgPicture.asset("assets/icons/menu.svg"), onPressed: () {}),
@@ -204,7 +253,7 @@ class _BodyState extends State<Body> {
               color: Colors.white,
             ),
             //child: buildSearch()
-            child: HeaderWithScrollMenu(size: size)));
+            child: HeaderWithScrollMenu(size: size, items: widget.items!)));
   }
 
   Center buildSearch() {

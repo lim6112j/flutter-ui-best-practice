@@ -5,6 +5,7 @@ class PinkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 100.0,
       color: kPrimaryColor,
       child: Center(child: Text("Settings")),
     );

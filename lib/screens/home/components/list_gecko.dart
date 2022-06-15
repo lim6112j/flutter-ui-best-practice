@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/home/components/hero_detail_view.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
@@ -20,7 +21,7 @@ class ListGecko extends StatelessWidget {
           return Container();
         }
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SizedBox(
             height: 90 * (snapshot.data.length as int).toDouble(),
             child: ListView.builder(
@@ -29,6 +30,8 @@ class ListGecko extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
                   title: Text(snapshot.data[index].name!),
                   subtitle: Text(snapshot.data[index].color!),
                   trailing: PhotoHero(
