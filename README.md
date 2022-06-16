@@ -1,6 +1,8 @@
 # gecko_app
 
-A new Flutter project.
+* A new Flutter project.
+
+![flutter diagram](/assets/flutter.png)
 
 ## Getting Started
 
@@ -17,35 +19,30 @@ A new Flutter project.
 
 ## ios device에 설치 
 
-``` sh
-project-folder/open ios/Runner.xcworkspace
-flutter run --release
-```
+    project-folder/open ios/Runner.xcworkspace
+    flutter run --release
+
 ## unit test
 
-``` sh
-flutter test test/tree_test.dart
-```
+    flutter test test/tree_test.dart
+
 ## command history
 
-``` sh
-  flutter create gecko_app
-  cd gecko_app
-  flutter run
-  cd ..
-  flutter pub add graphview
-  flutter run
-  exit
-  cd ..
-  flutter run
-  flutter run --no-sound-null-safety
-```
+    flutter create gecko_app
+    cd gecko_app
+    flutter run
+    cd ..
+    flutter pub add graphview
+    flutter run
+    exit
+    cd ..
+    flutter run
+    flutter run --no-sound-null-safety
+
 # development phase 
 
-``` sh
-flutter run --dart-define="TYPE=development"
-flutter run --dart-define="TYPE=test"
-flutter run  (production phase with no argument) 
+    flutter run --dart-define="TYPE=development"
+    flutter run --dart-define="TYPE=test"
+    flutter run  (production phase with no argument) 
 
-```
 
