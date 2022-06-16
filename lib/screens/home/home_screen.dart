@@ -12,7 +12,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  List<String> menuItems = ['MyPage', 'News', 'Bid', 'Order', 'Tracking'];
+  List<String> menuItems = [
+    'MyPage',
+    'News',
+    'Bid',
+    'Order',
+    'Tracking',
+    'Help',
+    'More'
+  ];
   @override
   Widget build(BuildContext context) {
     print("home_screen rendering ....");

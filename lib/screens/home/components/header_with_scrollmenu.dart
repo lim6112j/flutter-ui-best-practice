@@ -35,7 +35,7 @@ class HeaderWithScrollMenu extends StatelessWidget {
               text: "$title\n",
               style: TextStyle(
                 fontSize: 12,
-                color: kPrimaryColor,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
               )),
         ]),

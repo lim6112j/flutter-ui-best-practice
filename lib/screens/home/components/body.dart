@@ -175,12 +175,13 @@ class _BodyState extends State<Body> {
     //return buildSingleChildScrollView(size);
     return CustomScrollView(controller: _controller, slivers: [
       SliverAppBar(
+        //excludeHeaderSemantics: true,
         automaticallyImplyLeading: true,
         floating: true,
         pinned: true,
         snap: true,
         centerTitle: true,
-        //title: Text('Gecko.com'),
+        title: Text('Gecko.com'),
         //leading: IconButton(
         //icon: SvgPicture.asset("assets/icons/menu.svg"),
         //onPressed: () {
@@ -191,7 +192,7 @@ class _BodyState extends State<Body> {
           // Function callback for stretch
           return Future<void>.value();
         },
-        expandedHeight: 250,
+        expandedHeight: 200,
         flexibleSpace: FlexibleSpaceBar(
           stretchModes: const <StretchMode>[
             StretchMode.zoomBackground,
@@ -204,7 +205,7 @@ class _BodyState extends State<Body> {
             fit: StackFit.expand,
             children: <Widget>[
               Image.asset(
-                "assets/images/blue.png",
+                "assets/images/appbar.jpeg",
                 fit: BoxFit.cover,
               ),
               const DecoratedBox(
@@ -249,12 +250,16 @@ class _BodyState extends State<Body> {
         title: Container(
             width: double.infinity,
             height: 35,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              color: Colors.white,
-            ),
+            //decoration: BoxDecoration(
+            //borderRadius: BorderRadius.circular(12.0),
+            //color: Colors.white,
+            //),
             //child: buildSearch()
-            child: HeaderWithScrollMenu(size: size, items: widget.items!)));
+            child: HeaderWithScrollMenu(size: size, items: widget.items!)
+            //child: Row(
+            //children: [Text("MyPage"), Text("Order")],
+            //)
+            ));
   }
 
   Center buildSearch() {
