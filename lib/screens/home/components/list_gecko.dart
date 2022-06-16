@@ -23,7 +23,7 @@ class ListGecko extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SizedBox(
-            height: 90 * (snapshot.data.length as int).toDouble(),
+            height: 82 * (snapshot.data.length as int).toDouble(),
             child: ListView.builder(
               primary: false,
               physics: NeverScrollableScrollPhysics(),
