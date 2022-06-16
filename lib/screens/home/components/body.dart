@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gecko_app/pages/blue_page.dart';
-import 'package:gecko_app/pages/pink_page.dart';
+import 'package:gecko_app/pages/placeholder_page.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/fine_rich_text.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
@@ -227,8 +226,7 @@ class _BodyState extends State<Body> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => BluePage()));
+                Navigator.of(context).push(_createRoute());
               },
               icon: Icon(Icons.shopping_cart))
         ],
@@ -281,8 +279,6 @@ class _BodyState extends State<Body> {
           if (details.primaryVelocity! > 10.0) {
             Scaffold.of(context).openDrawer();
           } else if (details.primaryVelocity! < -10.0) {
-            //Navigator.of(context).push(MaterialPageRoute(
-            //builder: (BuildContext context) => BluePage()));
             Navigator.of(context).push(_createRoute());
           }
         },
@@ -354,7 +350,8 @@ class _BodyState extends State<Body> {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => BluePage(),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        PlaceholderPage(title: "cart"),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
