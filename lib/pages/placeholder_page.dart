@@ -17,7 +17,8 @@ class PlaceholderPage extends StatelessWidget {
         child: Container(
           color: Colors.white,
           child: Center(
-              child: Text("Cart Page", style: TextStyle(color: kPrimaryColor))),
+              child:
+                  Text("$title Page", style: TextStyle(color: kPrimaryColor))),
         ),
       ),
     );

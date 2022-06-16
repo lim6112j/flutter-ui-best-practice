@@ -15,8 +15,31 @@ class Gecko {
   final String? images;
 
   final String? ancestry;
-  Gecko({  this.id,  this.name,  this.age, this.origin, this.color, this.father, this.mother,this.thumbnail, this.images, this.ancestry });
-
+  Gecko(
+      {this.id,
+      this.name,
+      this.age,
+      this.origin,
+      this.color,
+      this.father,
+      this.mother,
+      this.thumbnail,
+      this.images,
+      this.ancestry});
+  factory Gecko.fromJson(Map<String, dynamic> json) {
+    return Gecko(
+      id: json['id'],
+      name: json['name'],
+      age: json['age'],
+      origin: json['origin'],
+      color: json['color'],
+      father: json['father'],
+      mother: json['mother'],
+      thumbnail: json['thumbnail'],
+      images: json['images'],
+      ancestry: json['ancestry'],
+    );
+  }
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -31,6 +54,7 @@ class Gecko {
       'ancestry': ancestry,
     };
   }
+
   @override
   String toString() {
     return 'Gecko{id: $id, ancestry: $ancestry, name: $name, age: $age, origin: $origin, color: $color, father: $father, mother: $mother, thumbnail: $thumbnail, images: $images}';

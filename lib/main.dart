@@ -4,8 +4,10 @@ import 'package:gecko_app/screens/home/home_screen.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env", mergeWith: {});
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => GeckoModel()),
     ChangeNotifierProvider(create: (context) => ScrollModel()),

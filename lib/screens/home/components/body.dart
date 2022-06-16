@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gecko_app/pages/placeholder_page.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/fine_rich_text.dart';
@@ -11,10 +13,9 @@ import 'package:gecko_app/screens/home/components/recommend_geckos.dart';
 import 'package:gecko_app/screens/home/components/title_with_more_btn.dart';
 import 'package:gecko_app/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
-
 import '../../../state/ScrollModel.dart';
+import 'package:http/http.dart' as http;
 
 class Body extends StatefulWidget {
   Body({Key? key, this.items}) : super(key: key);
@@ -35,123 +36,6 @@ class _BodyState extends State<Body> {
 
   ScrollModel? scrollModel;
 
-  Future<List<Gecko>> getGeckoData() async {
-    Gecko gecko = Gecko(
-      id: 1,
-      name: 'Cutey',
-      age: 2,
-      origin: 'korea',
-      color: 'yellow',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/yellow.jpeg",
-      images: "img1, img2",
-      ancestry: "2/",
-    );
-    Gecko gecko2 = Gecko(
-      id: 2,
-      name: '파랑이',
-      age: 4,
-      origin: 'Indonesia',
-      color: 'blue',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/blue.png",
-      images: "img1, img2",
-      ancestry: "1/3/",
-    );
-    Gecko gecko3 = Gecko(
-      id: 3,
-      name: '오렌지',
-      age: 1,
-      origin: 'Brasil',
-      color: 'orange',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/orange.jpeg",
-      images: "img1, img2",
-      ancestry: "1/2/4/",
-    );
-    Gecko gecko4 = Gecko(
-      id: 4,
-      name: '레모니',
-      age: 2,
-      origin: 'America',
-      color: 'lemon',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/lemon_frost_resized.png",
-      images: "img1, img2",
-      ancestry: "1/2/3/",
-    );
-    Gecko gecko5 = Gecko(
-      id: 5,
-      name: '모니',
-      age: 2,
-      origin: 'America',
-      color: 'lemon',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/lemon_frost_resized.png",
-      images: "img1, img2",
-      ancestry: "1/2/3/4/6/7/8/",
-    );
-    Gecko gecko6 = Gecko(
-      id: 6,
-      name: 'utey',
-      age: 2,
-      origin: 'korea',
-      color: 'yellow',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/yellow.jpeg",
-      images: "img1, img2",
-      ancestry: "2/",
-    );
-    Gecko gecko7 = Gecko(
-      id: 7,
-      name: '랑이',
-      age: 4,
-      origin: 'Indonesia',
-      color: 'blue',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/blue.png",
-      images: "img1, img2",
-      ancestry: "1/3/",
-    );
-    Gecko gecko8 = Gecko(
-      id: 8,
-      name: '렌지',
-      age: 1,
-      origin: 'Brasil',
-      color: 'orange',
-      father: 1,
-      mother: 2,
-      thumbnail: "assets/images/orange.jpeg",
-      images: "img1, img2",
-      ancestry: "1/2/4/",
-    );
-    var initiaize = true;
-    if (initiaize) {
-      var geckos = await SqfliteHelper().geckos();
-      for (var gecko in geckos) {
-        SqfliteHelper().deleteGecko(gecko.id!);
-      }
-    }
-    SqfliteHelper().insertGecko(gecko);
-    SqfliteHelper().insertGecko(gecko2);
-    SqfliteHelper().insertGecko(gecko3);
-    SqfliteHelper().insertGecko(gecko4);
-    SqfliteHelper().insertGecko(gecko5);
-    SqfliteHelper().insertGecko(gecko6);
-    SqfliteHelper().insertGecko(gecko7);
-    SqfliteHelper().insertGecko(gecko8);
-    var geckos = SqfliteHelper().geckos();
-    //print(await geckos);
-    return await geckos;
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -169,6 +53,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     print("body is rerendering >>>>>>>>>>");
+    //print("Geckos from api : $aGecko");
     scrollModel = context.read<ScrollModel>();
     _controller.addListener(_scrollListener);
     Size size = MediaQuery.of(context).size;
@@ -291,14 +176,16 @@ class _BodyState extends State<Body> {
               press: () {},
             ),
             RecommendGeckos(
-              geckos: getGeckoData(),
+              //geckos: getGeckoData(),
+              geckos: fetchGeckos(),
             ),
             TitleWithMoreBtn(
               title: "Featured Geckos",
               press: () {},
             ),
             FeaturedGeckos(),
-            ListGecko(geckos: getGeckoData()),
+            //ListGecko(geckos: getGeckoData()),
+            ListGecko(geckos: fetchGeckos()),
             Padding(
               padding: EdgeInsets.all(kDefaultPadding),
               child: FineRichText(
@@ -369,4 +256,30 @@ Route _createRoute() {
       );
     },
   );
+}
+
+Future<List<Gecko>> fetchGeckos() async {
+  //print("current api port    is   $port");
+  //print("current api uri    is   ${dotenv.env['URL']}");
+  //print("current api path    is   ${dotenv.env['GECKOS']}");
+  String uriStr =
+      '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}';
+  Uri uri = Uri.parse(uriStr);
+  //print("total uri is ${uri.toString()}");
+  var responses = await http.get(uri).catchError((e) async {
+    print("error !!! $e");
+  });
+  //print("responses status code : ${responses.statusCode}");
+  if (responses.statusCode == 200) {
+    //print("ress is $ress");
+    return compute(parseGeckos, responses.body);
+  } else {
+    throw Exception('Failed load gecko');
+  }
+}
+
+List<Gecko> parseGeckos(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Gecko>((json) => Gecko.fromJson(json)).toList();
 }
