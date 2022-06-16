@@ -161,6 +161,7 @@ class _BodyState extends State<Body> {
   @override
   void dispose() {
     // TODO: implement dispose
+    _controller.removeListener(_scrollListener);
     _controller.dispose();
     super.dispose();
   }
@@ -269,25 +270,35 @@ class _BodyState extends State<Body> {
 
   SingleChildScrollView buildSingleChildScrollView(Size size) {
     return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          //HeaderWithSearchBox(size: size),
-          //HeaderWithScrollMenu(size: size),
-          TitleWithMoreBtn(
-            title: "Gecko Rocks",
-            press: () {},
-          ),
-          RecommendGeckos(
-            geckos: getGeckoData(),
-          ),
-          TitleWithMoreBtn(
-            title: "Featured Geckos",
-            press: () {},
-          ),
-          FeaturedGeckos(),
-          ListGecko(geckos: getGeckoData()),
-          SizedBox(height: kDefaultPadding),
-        ],
+      child: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity! > 10.0) {
+            Scaffold.of(context).openDrawer();
+          } else if (details.primaryVelocity! < -10.0) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => BluePage()));
+          }
+        },
+        child: Column(
+          children: <Widget>[
+            //HeaderWithSearchBox(size: size),
+            //HeaderWithScrollMenu(size: size),
+            TitleWithMoreBtn(
+              title: "Gecko Rocks",
+              press: () {},
+            ),
+            RecommendGeckos(
+              geckos: getGeckoData(),
+            ),
+            TitleWithMoreBtn(
+              title: "Featured Geckos",
+              press: () {},
+            ),
+            FeaturedGeckos(),
+            ListGecko(geckos: getGeckoData()),
+            SizedBox(height: kDefaultPadding),
+          ],
+        ),
       ),
     );
   }
