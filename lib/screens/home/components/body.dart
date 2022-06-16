@@ -266,6 +266,7 @@ Future<List<Gecko>> fetchGeckos() async {
       '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}';
   Uri uri = Uri.parse(uriStr);
   //print("total uri is ${uri.toString()}");
+  //TODO error handling when network error
   var responses = await http.get(uri).catchError((e) async {
     print("error !!! $e");
   });

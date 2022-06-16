@@ -7,7 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
-  await dotenv.load(fileName: ".env", mergeWith: {});
+  const devType = String.fromEnvironment('TYPE');
+  if (devType == 'development') {
+    await dotenv.load(fileName: '.env.local');
+  } else if (devType == 'test') {
+    await dotenv.load(fileName: ".env.test");
+  } else {
+    dotenv.load(fileName: ".env");
+  }
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => GeckoModel()),
     ChangeNotifierProvider(create: (context) => ScrollModel()),

@@ -40,3 +40,12 @@ flutter test test/tree_test.dart
   flutter run
   flutter run --no-sound-null-safety
 ```
+# development phase 
+
+``` sh
+flutter run --dart-define="TYPE=development"
+flutter run --dart-define="TYPE=test"
+flutter run  (production phase with no argument) 
+
+```
+
