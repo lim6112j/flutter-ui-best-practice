@@ -281,8 +281,9 @@ class _BodyState extends State<Body> {
           if (details.primaryVelocity! > 10.0) {
             Scaffold.of(context).openDrawer();
           } else if (details.primaryVelocity! < -10.0) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => BluePage()));
+            //Navigator.of(context).push(MaterialPageRoute(
+            //builder: (BuildContext context) => BluePage()));
+            Navigator.of(context).push(_createRoute());
           }
         },
         child: Column(
@@ -305,8 +306,7 @@ class _BodyState extends State<Body> {
             Padding(
               padding: EdgeInsets.all(kDefaultPadding),
               child: FineRichText(
-                message:
-                    "Geckos are small, mostly carnivorous lizards that have a wide distribution, found on every continent except Antarctica. Belonging to the infraorder Gekkota, geckos are found in warm climates throughout the world. They range from 1.6 to 60 centimetres (0.6 to 23.6 inches). ",
+                message: homeBottomFineMessage,
               ),
             ),
             SizedBox(height: kDefaultPadding),
@@ -350,4 +350,26 @@ class _BodyState extends State<Body> {
       print("reach the top");
     }
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => BluePage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      final tween = Tween(begin: begin, end: end);
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: curve,
+      );
+
+      return SlideTransition(
+        position: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
 }
