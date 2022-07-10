@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gecko_app/database/MySqlHelper.dart';
 import 'package:gecko_app/pages/placeholder_page.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/fine_rich_text.dart';
@@ -177,7 +178,7 @@ class _BodyState extends State<Body> {
             ),
             RecommendGeckos(
               //geckos: getGeckoData(),
-              geckos: fetchGeckos(),
+              geckos: MySqlHelper().fetchGeckos(),
             ),
             TitleWithMoreBtn(
               title: "Featured Geckos",
@@ -185,7 +186,7 @@ class _BodyState extends State<Body> {
             ),
             FeaturedGeckos(),
             //ListGecko(geckos: getGeckoData()),
-            ListGecko(geckos: fetchGeckos()),
+            ListGecko(geckos: MySqlHelper().fetchGeckos()),
             Padding(
               padding: EdgeInsets.all(kDefaultPadding),
               child: FineRichText(
@@ -256,33 +257,4 @@ Route _createRoute() {
       );
     },
   );
-}
-
-Future<List<Gecko>> fetchGeckos() async {
-  //print("current api port    is   $port");
-  //print("current api uri    is   ${dotenv.env['URL']}");
-  //print("current api path    is   ${dotenv.env['GECKOS']}");
-  String uriStr =
-      '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}';
-  Uri uri = Uri.parse(uriStr);
-  //print("total uri is ${uri.toString()}");
-  //TODO error handling when network error
-  var responses = await http.get(uri).catchError((e) async {
-    //TODO if network failed, use sqflite data
-    print("error !!! $e");
-  });
-  //print("responses status code : ${responses.statusCode}");
-  if (responses.statusCode == 200) {
-    //print("ress is $ress");
-    return compute(parseGeckos, responses.body);
-  } else {
-    //TODO if network failed, use sqflite data
-    throw Exception('Failed load gecko');
-  }
-}
-
-List<Gecko> parseGeckos(String responseBody) {
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Gecko>((json) => Gecko.fromJson(json)).toList();
 }

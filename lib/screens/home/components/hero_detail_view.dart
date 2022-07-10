@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/database/MySqlHelper.dart';
 import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
@@ -140,7 +141,8 @@ class _HeroDetailViewState extends State<HeroDetailView>
     var ancestry = widget.gecko.ancestry;
     var arr = ancestry!.split('/');
     // TODO below sqflitehelper should change to mysqlhelper
-    List<Gecko> gList = await SqfliteHelper().selectGeckos(arr);
+    //List<Gecko> gList = await SqfliteHelper().selectGeckos(arr);
+    List<Gecko> gList = await MySqlHelper().selectGeckos(arr);
     //print(gList);
     return gList;
   }
