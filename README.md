@@ -9,7 +9,9 @@
 * open IOS simulator
 `open -a Simulator`
 * run 
-`flutter run`
+run api server : move to project node-gecko-server
+`npm run fake`
+`flutter run` check below development phase
 ## how to add column
 * add column to SqfliteHelper.dart
 * update version number
@@ -46,3 +48,4 @@
     flutter run  (production phase with no argument) 
 
 
+     

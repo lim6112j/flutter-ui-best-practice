@@ -268,6 +268,7 @@ Future<List<Gecko>> fetchGeckos() async {
   //print("total uri is ${uri.toString()}");
   //TODO error handling when network error
   var responses = await http.get(uri).catchError((e) async {
+    //TODO if network failed, use sqflite data
     print("error !!! $e");
   });
   //print("responses status code : ${responses.statusCode}");
@@ -275,6 +276,7 @@ Future<List<Gecko>> fetchGeckos() async {
     //print("ress is $ress");
     return compute(parseGeckos, responses.body);
   } else {
+    //TODO if network failed, use sqflite data
     throw Exception('Failed load gecko');
   }
 }

@@ -56,6 +56,8 @@ flutter:
     - .env
     - .env.local
     - .env.test
+    - .env.raspberry
+    - .env.raspberry.remote
 
   #   - images/a_dot_ham.jpeg
 

@@ -12,9 +12,14 @@ Future main() async {
     await dotenv.load(fileName: '.env.local');
   } else if (devType == 'test') {
     await dotenv.load(fileName: ".env.test");
+  } else if (devType == 'raspberry') {
+    await dotenv.load(fileName: ".env.raspberry");
+  } else if (devType == 'raspberry-remote') {
+    await dotenv.load(fileName: ".env.raspberry.remote");
   } else {
     dotenv.load(fileName: ".env");
   }
+  // TODO remove GeckoModel ??
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => GeckoModel()),
     ChangeNotifierProvider(create: (context) => ScrollModel()),
