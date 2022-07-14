@@ -140,7 +140,7 @@ class _HeroDetailViewState extends State<HeroDetailView>
   Future<List<Gecko>> getParents() async {
     var ancestry = widget.gecko.ancestry;
     var arr = ancestry!.split('/');
-    // TODO below sqflitehelper should change to mysqlhelper
+    // TODO below sqflitehelper changed to mysqlhelper, but too slow ,use sqflite from mysql data
     //List<Gecko> gList = await SqfliteHelper().selectGeckos(arr);
     List<Gecko> gList = await MySqlHelper().selectGeckos(arr);
     //print(gList);

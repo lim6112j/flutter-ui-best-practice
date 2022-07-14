@@ -17,7 +17,7 @@ Future main() async {
   } else if (devType == 'raspberry-remote') {
     await dotenv.load(fileName: ".env.raspberry.remote");
   } else {
-    dotenv.load(fileName: ".env");
+    dotenv.load(fileName: ".env.raspberry.remote");
   }
   // TODO remove GeckoModel ??
   runApp(MultiProvider(providers: [
