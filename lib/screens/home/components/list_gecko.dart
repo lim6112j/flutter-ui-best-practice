@@ -20,37 +20,39 @@ class ListGecko extends StatelessWidget {
             !snapshot.hasData) {
           return Container();
         }
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
-            height: 82 * (snapshot.data.length as int).toDouble(),
-            child: ListView.builder(
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) => Card(
-                child: ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  title: Text(snapshot.data[index].name!),
-                  subtitle: Text(snapshot.data[index].color!),
-                  trailing: PhotoHero(
-                    tagName: 'tag$index',
-                    img: snapshot.data[index].thumbnail,
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return HeroDetailView(
-                            gecko: snapshot.data[index],
-                          );
-                        },
-                      ));
-                    },
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ListView.builder(
+                primary: false,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) => Card(
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    title: Text(snapshot.data[index].name!),
+                    subtitle: Text(snapshot.data[index].color!),
+                    trailing: PhotoHero(
+                      tagName: 'tag$index',
+                      img: snapshot.data[index].thumbnail,
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return HeroDetailView(
+                              gecko: snapshot.data[index],
+                            );
+                          },
+                        ));
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         );
       },
       future: geckos,
