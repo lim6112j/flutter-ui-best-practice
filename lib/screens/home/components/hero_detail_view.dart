@@ -7,6 +7,7 @@ import 'package:gecko_app/database/SqfliteHelper.dart';
 import 'package:gecko_app/models/gecko.dart';
 import 'package:gecko_app/screens/home/components/photo_hero.dart';
 import 'package:graphview/GraphView.dart';
+import 'package:gecko_app/screens/home/components/LoadingWidget.dart';
 
 class HeroDetailView extends StatefulWidget {
   final String? img;
@@ -202,7 +203,7 @@ class _HeroDetailViewState extends State<HeroDetailView>
         if (snapshot.connectionState == ConnectionState.none ||
             !snapshot.hasData) {
           print("snapshot not available");
-          return Container();
+          return LoadingWidget();
         }
         snapshot.data!.insert(0, widget.gecko);
         print(snapshot.data!.length);
