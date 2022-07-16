@@ -57,7 +57,7 @@ class MySqlHelper {
     for (var i = 0; i < args.length; i++) {
       if (args[i] == "") continue;
       String uriStr =
-          '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}?id=${args[i]}';
+          '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}/${args[i]}';
       print("------------------- uriStr = $uriStr");
       Uri uri = Uri.parse(uriStr);
       var response = await http.get(uri).catchError((e) async {
@@ -66,7 +66,7 @@ class MySqlHelper {
       });
       if (response.statusCode == 200) {
         var geckoJson = json.decode(response.body);
-        maps.add(Gecko.fromJson(geckoJson[0]));
+        maps.add(Gecko.fromJson(geckoJson));
       } else {
         throw Exception('Failed load gecko');
       }
