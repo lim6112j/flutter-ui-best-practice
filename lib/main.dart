@@ -3,6 +3,8 @@ import 'package:gecko_app/constants.dart';
 import 'package:gecko_app/screens/home/home_screen.dart';
 import 'package:gecko_app/state/GeckoModel.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
+import 'package:gecko_app/state/SpinerNotifier.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -23,6 +25,7 @@ Future main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => GeckoModel()),
     ChangeNotifierProvider(create: (context) => ScrollModel()),
+    ChangeNotifierProvider(create: (context) => SpinnerNotifier())
   ], child: MyApp()));
 }
 
