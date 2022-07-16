@@ -12,51 +12,61 @@ class RecommendGeckos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          RecommendGeckoCard(
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          DetailsScreen(image: 'assets/images/blue.png'),
-                    ));
-              },
-              country: 'rusia',
-              image: 'assets/images/blue.png',
-              price: 200,
-              title: "ben lim"),
-          RecommendGeckoCard(
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          DetailsScreen(image: 'assets/images/orange.jpeg'),
-                    ));
-              },
-              country: 'korea',
-              image: 'assets/images/orange.jpeg',
-              price: 400,
-              title: "samantha"),
-          RecommendGeckoCard(
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          DetailsScreen(image: 'assets/images/yellow.jpeg'),
-                    ));
-              },
-              country: 'Japan',
-              image: 'assets/images/yellow.jpeg',
-              price: 800,
-              title: "nakamura"),
-        ],
-      ),
+    return FutureBuilder(
+      future: geckos,
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.none ||
+            !snapshot.hasData) {
+          return Container();
+        }
+        print(snapshot.hasData);
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              RecommendGeckoCard(
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailsScreen(image: snapshot.data[0].thumbnail),
+                        ));
+                  },
+                  country: snapshot.data[0].origin,
+                  image: snapshot.data[0].thumbnail,
+                  price: 200,
+                  title: snapshot.data[0].name),
+              RecommendGeckoCard(
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailsScreen(image: snapshot.data[1].thumbnail),
+                        ));
+                  },
+                  country: snapshot.data[1].origin,
+                  image: snapshot.data[1].thumbnail,
+                  price: 400,
+                  title: snapshot.data[1].name),
+              RecommendGeckoCard(
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailsScreen(image: snapshot.data[2].thumbnail),
+                        ));
+                  },
+                  country: snapshot.data[2].origin,
+                  image: snapshot.data[2].thumbnail,
+                  price: 800,
+                  title: snapshot.data[2].name),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -159,6 +159,7 @@ class _BodyState extends State<Body> {
   }
 
   SingleChildScrollView buildSingleChildScrollView(Size size) {
+    Future<List<Gecko>> geckos = MySqlHelper().fetchGeckos();
     return SingleChildScrollView(
       child: GestureDetector(
         onHorizontalDragEnd: (details) {
@@ -178,15 +179,17 @@ class _BodyState extends State<Body> {
             ),
             RecommendGeckos(
               //geckos: getGeckoData(),
-              geckos: MySqlHelper().fetchGeckos(),
+              geckos: geckos,
             ),
             TitleWithMoreBtn(
               title: "Featured Geckos",
               press: () {},
             ),
-            FeaturedGeckos(),
+            FeaturedGeckos(
+              geckos: geckos,
+            ),
             //ListGecko(geckos: getGeckoData()),
-            ListGecko(geckos: MySqlHelper().fetchGeckos()),
+            ListGecko(geckos: geckos),
             Padding(
               padding: EdgeInsets.all(kDefaultPadding),
               child: FineRichText(
