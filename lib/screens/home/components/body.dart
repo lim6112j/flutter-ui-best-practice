@@ -175,85 +175,76 @@ class _BodyState extends State<Body> {
         child: FutureBuilder(
             future: geckos,
             builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.none ||
-                  !snapshot.hasData) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        //Image(
-                        //image: AssetImage('assets/images/blue.png'),
-                        //),
-                        SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: CircularProgressIndicator(),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text('Awaiting Database...'),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }
+              //if (snapshot.connectionState == ConnectionState.none ||
+              //!snapshot.hasData) {
+              //return Padding(
+              //padding: EdgeInsets.only(top: 100),
+              //child: Center(
+              //child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              //children: const <Widget>[
+              ////Image(
+              ////image: AssetImage('assets/images/blue.png'),
+              ////),
+              //SizedBox(
+              //width: 30,
+              //height: 30,
+              //child: CircularProgressIndicator(),
+              //),
+              //Padding(
+              //padding: EdgeInsets.all(16),
+              //child: Text('Awaiting Database...'),
+              //)
+              //],
+              //),
+              //),
+              //);
+              //}
               if (snapshot.connectionState == ConnectionState.active) {
-                return CustomSpinner(
-                  spinnerVisible: true,
-                );
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      //Image(
-                      //image: AssetImage('assets/images/blue.png'),
-                      //),
-                      SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: CircularProgressIndicator(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('Awaiting Database...'),
-                      )
-                    ],
-                  ),
-                );
+                print("connectionState active");
               }
-              return Column(
-                children: <Widget>[
-                  //HeaderWithSearchBox(size: size),
-                  //HeaderWithScrollMenu(size: size),
-                  TitleWithMoreBtn(
-                    title: "Gecko Rocks",
-                    press: () {},
-                  ),
-                  RecommendGeckos(
-                    //geckos: getGeckoData(),
-                    geckos: snapshot.data,
-                  ),
-                  TitleWithMoreBtn(
-                    title: "Featured Geckos",
-                    press: () {},
-                  ),
-                  FeaturedGeckos(
-                    geckos: snapshot.data,
-                  ),
-                  //ListGecko(geckos: getGeckoData()),
-                  ListGecko(geckos: snapshot.data),
-                  Padding(
-                    padding: EdgeInsets.all(kDefaultPadding),
-                    child: FineRichText(
-                      message: homeBottomFineMessage,
-                    ),
-                  ),
-                  SizedBox(height: kDefaultPadding),
-                ],
-              );
+              return snapshot.connectionState == ConnectionState.done
+                  ? snapshot.hasData
+                      ? Column(
+                          children: <Widget>[
+                            //HeaderWithSearchBox(size: size),
+                            //HeaderWithScrollMenu(size: size),
+                            TitleWithMoreBtn(
+                              title: "Gecko Rocks",
+                              press: () {},
+                            ),
+                            RecommendGeckos(
+                              //geckos: getGeckoData(),
+                              geckos: snapshot.data,
+                            ),
+                            TitleWithMoreBtn(
+                              title: "Featured Geckos",
+                              press: () {},
+                            ),
+                            FeaturedGeckos(
+                              geckos: snapshot.data,
+                            ),
+                            //ListGecko(geckos: getGeckoData()),
+                            ListGecko(geckos: snapshot.data),
+                            Padding(
+                              padding: EdgeInsets.all(kDefaultPadding),
+                              child: FineRichText(
+                                message: homeBottomFineMessage,
+                              ),
+                            ),
+                            SizedBox(height: kDefaultPadding),
+                          ],
+                        )
+                      : InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.all(32.0),
+                            child: Text("Error Occurred , Tap to retry !"),
+                          ),
+                          onTap: () => setState(() {
+                            geckos = MySqlHelper().fetchGeckos();
+                          }),
+                        )
+                  : CircularProgressIndicator();
             }),
       ),
     );
