@@ -235,14 +235,16 @@ class _BodyState extends State<Body> {
                             SizedBox(height: kDefaultPadding),
                           ],
                         )
-                      : InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.all(32.0),
-                            child: Text("Error Occurred , Tap to retry !"),
+                      : Center(
+                          child: InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(32.0),
+                              child: Text("Error Occurred , Tap to retry !"),
+                            ),
+                            onTap: () => setState(() {
+                              geckos = MySqlHelper().fetchGeckos();
+                            }),
                           ),
-                          onTap: () => setState(() {
-                            geckos = MySqlHelper().fetchGeckos();
-                          }),
                         )
                   : CircularProgressIndicator();
             }),
@@ -281,9 +283,6 @@ class _BodyState extends State<Body> {
       hidden = false;
       //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
       scrollModel?.changeHidden(false);
-      setState(() {
-        geckos = MySqlHelper().fetchGeckos();
-      });
       print("reach the top");
     }
   }
