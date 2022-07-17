@@ -88,7 +88,13 @@ class _HeroDetailViewState extends State<HeroDetailView>
   Widget rectangleWidget(Gecko gecko) {
     return InkWell(
       onTap: () {
-        print('clicked');
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) {
+            return HeroDetailView(
+              gecko: gecko,
+            );
+          },
+        ));
       },
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         GestureDetector(
@@ -253,8 +259,8 @@ class _HeroDetailViewState extends State<HeroDetailView>
               ),
               Expanded(
                 child: InteractiveViewer(
-                    transformationController: _transformationController,
-                    onInteractionStart: _onIteractionStart,
+                    //transformationController: _transformationController,
+                    //onInteractionStart: _onIteractionStart,
                     constrained: false,
                     boundaryMargin: EdgeInsets.all(10),
                     minScale: 1.0,
