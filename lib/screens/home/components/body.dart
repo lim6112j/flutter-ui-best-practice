@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gecko_app/database/MySqlHelper.dart';
 import 'package:gecko_app/pages/placeholder_page.dart';
+import 'package:gecko_app/screens/home/components/CustomSpinner.dart';
+import 'package:gecko_app/screens/home/components/LoadingWidget.dart';
 import 'package:gecko_app/screens/home/components/featured_geckos.dart';
 import 'package:gecko_app/screens/home/components/fine_rich_text.dart';
 import 'package:gecko_app/screens/home/components/header_with_scrollmenu.dart';
@@ -37,10 +39,12 @@ class _BodyState extends State<Body> {
 
   ScrollModel? scrollModel;
 
+  Future<List<Gecko>>? geckos;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    geckos = MySqlHelper().fetchGeckos();
   }
 
   @override
@@ -159,7 +163,6 @@ class _BodyState extends State<Body> {
   }
 
   SingleChildScrollView buildSingleChildScrollView(Size size) {
-    Future<List<Gecko>> geckos = MySqlHelper().fetchGeckos();
     return SingleChildScrollView(
       child: GestureDetector(
         onHorizontalDragEnd: (details) {
@@ -169,36 +172,89 @@ class _BodyState extends State<Body> {
             Navigator.of(context).push(_createRoute());
           }
         },
-        child: Column(
-          children: <Widget>[
-            //HeaderWithSearchBox(size: size),
-            //HeaderWithScrollMenu(size: size),
-            TitleWithMoreBtn(
-              title: "Gecko Rocks",
-              press: () {},
-            ),
-            RecommendGeckos(
-              //geckos: getGeckoData(),
-              geckos: geckos,
-            ),
-            TitleWithMoreBtn(
-              title: "Featured Geckos",
-              press: () {},
-            ),
-            FeaturedGeckos(
-              geckos: geckos,
-            ),
-            //ListGecko(geckos: getGeckoData()),
-            ListGecko(geckos: geckos),
-            Padding(
-              padding: EdgeInsets.all(kDefaultPadding),
-              child: FineRichText(
-                message: homeBottomFineMessage,
-              ),
-            ),
-            SizedBox(height: kDefaultPadding),
-          ],
-        ),
+        child: FutureBuilder(
+            future: geckos,
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.none ||
+                  !snapshot.hasData) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        //Image(
+                        //image: AssetImage('assets/images/blue.png'),
+                        //),
+                        SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: CircularProgressIndicator(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text('Awaiting Database...'),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.active) {
+                return CustomSpinner(
+                  spinnerVisible: true,
+                );
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      //Image(
+                      //image: AssetImage('assets/images/blue.png'),
+                      //),
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: CircularProgressIndicator(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text('Awaiting Database...'),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return Column(
+                children: <Widget>[
+                  //HeaderWithSearchBox(size: size),
+                  //HeaderWithScrollMenu(size: size),
+                  TitleWithMoreBtn(
+                    title: "Gecko Rocks",
+                    press: () {},
+                  ),
+                  RecommendGeckos(
+                    //geckos: getGeckoData(),
+                    geckos: snapshot.data,
+                  ),
+                  TitleWithMoreBtn(
+                    title: "Featured Geckos",
+                    press: () {},
+                  ),
+                  FeaturedGeckos(
+                    geckos: snapshot.data,
+                  ),
+                  //ListGecko(geckos: getGeckoData()),
+                  ListGecko(geckos: snapshot.data),
+                  Padding(
+                    padding: EdgeInsets.all(kDefaultPadding),
+                    child: FineRichText(
+                      message: homeBottomFineMessage,
+                    ),
+                  ),
+                  SizedBox(height: kDefaultPadding),
+                ],
+              );
+            }),
       ),
     );
   }
@@ -234,6 +290,9 @@ class _BodyState extends State<Body> {
       hidden = false;
       //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
       scrollModel?.changeHidden(false);
+      setState(() {
+        geckos = MySqlHelper().fetchGeckos();
+      });
       print("reach the top");
     }
   }

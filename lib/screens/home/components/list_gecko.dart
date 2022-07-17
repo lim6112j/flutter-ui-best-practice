@@ -10,52 +10,43 @@ class ListGecko extends StatelessWidget {
     this.geckos,
   }) : super(key: key);
 
-  final Future<List<Gecko>>? geckos;
+  final List<Gecko>? geckos;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.none ||
-            !snapshot.hasData) {
-          return Container();
-        }
-        return Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    title: Text(snapshot.data[index].name!),
-                    subtitle: Text(snapshot.data[index].color!),
-                    trailing: PhotoHero(
-                      tagName: 'tag$index',
-                      img: snapshot.data[index].thumbnail,
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return HeroDetailView(
-                              gecko: snapshot.data[index],
-                            );
-                          },
-                        ));
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: geckos!.length,
+            itemBuilder: (context, index) => Card(
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                title: Text(geckos![index].name!),
+                subtitle: Text(geckos![index].color!),
+                trailing: PhotoHero(
+                  tagName: 'tag$index',
+                  img: geckos![index].thumbnail,
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return HeroDetailView(
+                          gecko: geckos![index],
+                        );
                       },
-                    ),
-                  ),
+                    ));
+                  },
                 ),
               ),
             ),
-          ],
-        );
-      },
-      future: geckos,
+          ),
+        ),
+      ],
     );
   }
 }
