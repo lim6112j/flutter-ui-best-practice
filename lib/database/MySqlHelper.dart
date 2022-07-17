@@ -26,7 +26,7 @@ class MySqlHelper {
     //print("current api path    is   ${dotenv.env['GECKOS']}");
     String uriStr =
         '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}';
-    print(uriStr);
+    //print(uriStr);
     Uri uri = Uri.parse(uriStr);
     //print("total uri is ${uri.toString()}");
     //TODO error handling when network error

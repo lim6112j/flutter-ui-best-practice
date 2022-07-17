@@ -8,7 +8,7 @@ class PhotoHero extends StatelessWidget {
   final String? tagName;
   @override
   Widget build(BuildContext context) {
-    print("$img$tagName");
+    //print("$img$tagName");
     return SizedBox(
       child: Hero(
           tag: '$img$tagName',

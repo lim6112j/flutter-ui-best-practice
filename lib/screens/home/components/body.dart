@@ -40,6 +40,7 @@ class _BodyState extends State<Body> {
   ScrollModel? scrollModel;
 
   Future<List<Gecko>>? geckos;
+  Timer? _debounce;
   @override
   void initState() {
     // TODO: implement initState
@@ -246,7 +247,15 @@ class _BodyState extends State<Body> {
                             }),
                           ),
                         )
-                  : CircularProgressIndicator();
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 18.0),
+                        child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator()),
+                      ),
+                    );
             }),
       ),
     );
@@ -255,36 +264,38 @@ class _BodyState extends State<Body> {
   void _scrollListener() {
     //print("debounce.isActive : ${_debounce?.isActive}");
     //if (_debounce?.isActive ?? false) _debounce?.cancel();
-    Timer(const Duration(milliseconds: 100), () {
-      if (_controller.offset <= prevOffset - 10 && (increasing ?? true)) {
-        hidden = false;
-        increasing = false;
-        //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
-        scrollModel?.changeHidden(false);
-      } else if (_controller.offset >= prevOffset + 10 &&
-          !(increasing ?? false)) {
-        hidden = true;
-        increasing = true;
-        //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
-        scrollModel?.changeHidden(true);
-      }
-      prevOffset = _controller.offset;
-    });
-
-    if (_controller.offset >= _controller.position.maxScrollExtent &&
-        !_controller.position.outOfRange) {
-      hidden = true;
-      //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
-      scrollModel?.changeHidden(true);
-      print("reach the bottom");
-    }
-    if (_controller.offset <= _controller.position.minScrollExtent &&
-        !_controller.position.outOfRange) {
+    if (_controller.offset <= prevOffset - 10 && (increasing ?? true)) {
       hidden = false;
+      increasing = false;
       //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
       scrollModel?.changeHidden(false);
-      print("reach the top");
+    } else if (_controller.offset >= prevOffset + 10 &&
+        !(increasing ?? false)) {
+      hidden = true;
+      increasing = true;
+      //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+      scrollModel?.changeHidden(true);
     }
+    prevOffset = _controller.offset;
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 100), () {
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        hidden = true;
+        //Provider.of<ScrollModel>(context, listen: false).changeHidden(true);
+        scrollModel?.changeHidden(true);
+        print("reach the bottom");
+      }
+      if (_controller.offset <= -20) {
+        hidden = false;
+        //Provider.of<ScrollModel>(context, listen: false).changeHidden(false);
+        setState(() {
+          geckos = MySqlHelper().fetchGeckos();
+        });
+        scrollModel?.changeHidden(false);
+        print("reach the top");
+      }
+    });
   }
 }
 
