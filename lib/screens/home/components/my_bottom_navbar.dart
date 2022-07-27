@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/utils/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:gecko_app/state/ScrollModel.dart';
 
@@ -57,18 +58,8 @@ AnimatedContainer buildContainer(BuildContext context, bool hidden) {
             IconButton(
               icon: Icon(Icons.manage_accounts, color: Colors.white),
               onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return ColoredBox(
-                          color: kPrimaryColor,
-                          child: Center(
-                            child: Text(
-                              "Login & My page",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ));
-                    });
+                Navigator.of(context)
+                    .push(PlaceHolder.createRouteVertical("add gecko"));
               },
             ),
             IconButton(

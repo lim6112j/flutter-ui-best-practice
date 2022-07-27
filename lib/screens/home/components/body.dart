@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:gecko_app/models/gecko.dart';
 import '../../../state/ScrollModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:gecko_app/utils/placeholder.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key, this.items}) : super(key: key);
@@ -117,7 +118,7 @@ class _BodyState extends State<Body> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(_createRoute());
+                Navigator.of(context).push(PlaceHolder.createRoute("cart"));
               },
               icon: Icon(Icons.shopping_cart))
         ],
@@ -170,7 +171,7 @@ class _BodyState extends State<Body> {
           if (details.primaryVelocity! > 10.0) {
             Scaffold.of(context).openDrawer();
           } else if (details.primaryVelocity! < -10.0) {
-            Navigator.of(context).push(_createRoute());
+            Navigator.of(context).push(PlaceHolder.createRoute("cart"));
           }
         },
         child: FutureBuilder(
@@ -297,27 +298,4 @@ class _BodyState extends State<Body> {
       }
     });
   }
-}
-
-Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>
-        PlaceholderPage(title: "cart"),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(1.0, 0.0);
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      final tween = Tween(begin: begin, end: end);
-      final curvedAnimation = CurvedAnimation(
-        parent: animation,
-        curve: curve,
-      );
-
-      return SlideTransition(
-        position: tween.animate(curvedAnimation),
-        child: child,
-      );
-    },
-  );
 }
