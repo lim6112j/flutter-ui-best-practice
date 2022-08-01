@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gecko_app/constants.dart';
+import 'package:gecko_app/database/MySqlHelper.dart';
 
 class AddGeckoPage extends StatefulWidget {
   AddGeckoPage({Key? key, this.title}) : super(key: key);
@@ -12,6 +13,13 @@ class AddGeckoState extends State<AddGeckoPage> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    String? geckoName = "agecko";
+    int? geckoAge = 2;
+    String? geckoOrigin = "korea";
+    String? geckoColor = "red";
+    String? geckoFather = "1";
+    String? geckoMother = "2";
+    String? geckoThumbnail = "assets/images/orange.jpeg";
     return Scaffold(
       appBar: AppBar(title: Text(widget.title!)),
       body: GestureDetector(
@@ -32,6 +40,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoName = value!;
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko Name'),
@@ -46,6 +57,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoAge = int.parse(value!);
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko age'),
@@ -60,6 +74,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoOrigin = value!;
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko origin'),
@@ -74,6 +91,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoColor = value!;
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko color'),
@@ -88,6 +108,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoFather = value!;
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko father'),
@@ -102,6 +125,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoMother = value!;
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko mother'),
@@ -116,6 +142,9 @@ class AddGeckoState extends State<AddGeckoPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  onSaved: (value) {
+                    geckoThumbnail = value!;
+                  },
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter Gecko Image'),
@@ -132,6 +161,17 @@ class AddGeckoState extends State<AddGeckoPage> {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')));
+                      MySqlHelper().addGecko(
+                          geckoName!,
+                          geckoAge!,
+                          geckoOrigin!,
+                          geckoColor!,
+                          "default desc",
+                          geckoFather!,
+                          geckoMother!,
+                          geckoThumbnail!,
+                          "img1, img2",
+                          "1/2/");
                     }
                   },
                   child: const Text('Submit'))

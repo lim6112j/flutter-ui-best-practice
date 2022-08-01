@@ -44,6 +44,44 @@ class MySqlHelper {
     }
   }
 
+  Future<Gecko> addGecko(
+      String name,
+      int age,
+      String origin,
+      String color,
+      String desc,
+      String father,
+      String mother,
+      String thumbnail,
+      String images,
+      String ancestry) async {
+    String uriStr =
+        '${dotenv.env['URL']}:${dotenv.env['PORT']}/${dotenv.env['GECKOS']}';
+    //print(uriStr);
+    Uri uri = Uri.parse(uriStr);
+    final response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'name': name,
+          'age': age,
+          'origin': origin,
+          'color': color,
+          'desc': desc,
+          'father': father,
+          'mother': mother,
+          'thumbnail': thumbnail,
+          'images': images,
+          'ancestry': ancestry
+        }));
+    if (response.statusCode == 201) {
+      return Gecko.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('failed to create gecko');
+    }
+  }
+
   List<Gecko> parseGeckos(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
